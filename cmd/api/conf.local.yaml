@@ -1,7 +1,11 @@
 database:
+  dbName: oscar_db
   log_queries: true
-  timeout_seconds: 5
-  psn: postgres://biadpozi:3_Czbl7jSjkUEWk--VP8QXMke-mFnczq@horton.elephantsql.com:5432/biadpozi
+  log: true
+  timeout: 30 # Query timeout in seconds
+  maxRetries: 5
+  createschema: false
+  psn: postgres://admin:Onsky@$32!@postgres.onskycloud.com:5432/oscar_db?sslmode=disable
 
 server:
   port: :8080

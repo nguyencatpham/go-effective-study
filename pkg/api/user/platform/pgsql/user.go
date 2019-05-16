@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // NewUser returns a new user database instance
@@ -44,8 +44,8 @@ func (u *User) Create(db orm.DB, usr gorsk.User) (*gorsk.User, error) {
 // View returns single user by ID
 func (u *User) View(db orm.DB, id int) (*gorsk.User, error) {
 	var user = new(gorsk.User)
-	sql := `SELECT "user".*, "role"."id" AS "role__id", "role"."access_level" AS "role__access_level", "role"."name" AS "role__name" 
-	FROM "users" AS "user" LEFT JOIN "roles" AS "role" ON "role"."id" = "user"."role_id" 
+	sql := `SELECT "user".*, "role"."id" AS "role__id", "role"."access_level" AS "role__access_level", "role"."name" AS "role__name"
+	FROM "users" AS "user" LEFT JOIN "roles" AS "role" ON "role"."id" = "user"."role_id"
 	WHERE ("user"."id" = ? and deleted_at is null)`
 	_, err := db.QueryOne(user, sql, id)
 	if err != nil {

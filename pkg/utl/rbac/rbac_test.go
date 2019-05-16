@@ -3,10 +3,10 @@ package rbac_test
 import (
 	"testing"
 
-	"github.com/ribice/gorsk/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
-	"github.com/ribice/gorsk/pkg/utl/mock"
-	"github.com/ribice/gorsk/pkg/utl/rbac"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/rbac"
 
 	"github.com/labstack/echo"
 

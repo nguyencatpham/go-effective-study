@@ -34,24 +34,24 @@ package api
 import (
 	"crypto/sha1"
 
-	"github.com/ribice/gorsk/pkg/utl/zlog"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/zlog"
 
-	"github.com/ribice/gorsk/pkg/api/auth"
-	al "github.com/ribice/gorsk/pkg/api/auth/logging"
-	at "github.com/ribice/gorsk/pkg/api/auth/transport"
-	"github.com/ribice/gorsk/pkg/api/password"
-	pl "github.com/ribice/gorsk/pkg/api/password/logging"
-	pt "github.com/ribice/gorsk/pkg/api/password/transport"
-	"github.com/ribice/gorsk/pkg/api/user"
-	ul "github.com/ribice/gorsk/pkg/api/user/logging"
-	ut "github.com/ribice/gorsk/pkg/api/user/transport"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth"
+	al "gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth/logging"
+	at "gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth/transport"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/password"
+	pl "gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/logging"
+	pt "gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/user"
+	ul "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/logging"
+	ut "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
 
-	"github.com/ribice/gorsk/pkg/utl/config"
-	"github.com/ribice/gorsk/pkg/utl/middleware/jwt"
-	"github.com/ribice/gorsk/pkg/utl/postgres"
-	"github.com/ribice/gorsk/pkg/utl/rbac"
-	"github.com/ribice/gorsk/pkg/utl/secure"
-	"github.com/ribice/gorsk/pkg/utl/server"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/config"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/middleware/jwt"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/postgres"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/rbac"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/secure"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/server"
 )
 
 // Start starts the API service

@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/ribice/gorsk/pkg/utl/middleware/secure"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/middleware/secure"
 
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"

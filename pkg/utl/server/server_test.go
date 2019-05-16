@@ -3,7 +3,7 @@ package server_test
 import (
 	"testing"
 
-	"github.com/ribice/gorsk/pkg/utl/server"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/server"
 )
 
 // Improve tests

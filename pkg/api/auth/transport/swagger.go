@@ -1,7 +1,7 @@
 package transport
 
 import (
-	"github.com/ribice/gorsk/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // Login request

@@ -30,9 +30,14 @@ type Configuration struct {
 
 // Database holds data necessery for database configuration
 type Database struct {
-	PSN        string `yaml:"psn,omitempty"`
-	LogQueries bool   `yaml:"log_queries,omitempty"`
-	Timeout    int    `yaml:"timeout_seconds,omitempty"`
+	DBName       string `yaml:"dbName,omitempty" json:"name,omitempty"`
+	PSN          string `yaml:"psn,omitempty" json:"name,omitempty"`
+	LogQueries   bool   `yaml:"log_queries,omitempty"`
+	PSNBase      string `yaml:"psnBase,omitempty" json:"name,omitempty"`
+	Log          bool
+	CreateSchema bool
+	Timeout      int
+	MaxRetries   int `yaml:"maxRetries,omitempty" json:"maxRetries,omitempty"`
 }
 
 // Server holds data necessery for server configuration

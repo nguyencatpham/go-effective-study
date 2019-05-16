@@ -2,7 +2,7 @@ package mockdb
 
 import (
 	"github.com/go-pg/pg/orm"
-	"github.com/ribice/gorsk/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // User database mock

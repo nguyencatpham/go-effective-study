@@ -2,7 +2,7 @@ package mock
 
 import (
 	"github.com/labstack/echo"
-	"github.com/ribice/gorsk/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // RBAC Mock

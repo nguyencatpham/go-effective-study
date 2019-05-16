@@ -3,9 +3,9 @@ package main
 import (
 	"flag"
 
-	"github.com/ribice/gorsk/pkg/api"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api"
 
-	"github.com/ribice/gorsk/pkg/utl/config"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/config"
 )
 
 func main() {

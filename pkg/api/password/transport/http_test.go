@@ -6,13 +6,13 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/ribice/gorsk/pkg/api/password"
-	"github.com/ribice/gorsk/pkg/api/password/transport"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/password"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
 
-	"github.com/ribice/gorsk/pkg/utl/mock"
-	"github.com/ribice/gorsk/pkg/utl/mock/mockdb"
-	"github.com/ribice/gorsk/pkg/utl/model"
-	"github.com/ribice/gorsk/pkg/utl/server"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/server"
 
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"

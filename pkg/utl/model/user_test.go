@@ -3,7 +3,7 @@ package gorsk_test
 import (
 	"testing"
 
-	"github.com/ribice/gorsk/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 func TestChangePassword(t *testing.T) {

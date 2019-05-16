@@ -3,7 +3,7 @@ package auth
 import (
 	"net/http"
 
-	"github.com/ribice/gorsk/pkg/utl/model"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/labstack/echo"
 )
