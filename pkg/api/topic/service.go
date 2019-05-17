@@ -1,6 +1,7 @@
 package user
 
 import (
+	"../model"
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"
@@ -10,25 +11,25 @@ import (
 
 // Service represents user application interface
 type Service interface {
-	Create(echo.Context, gorsk.User) (*gorsk.User, error)
-	List(echo.Context, *gorsk.Pagination) ([]gorsk.User, error)
-	View(echo.Context, int) (*gorsk.User, error)
+	Create(echo.Context, model.Topic) (*model.Topic, error)
+	List(echo.Context, *model.Pagination) ([]model.Topic, error)
+	View(echo.Context, int) (*model.Topic, error)
 	Delete(echo.Context, int) error
-	Update(echo.Context, *Update) (*gorsk.User, error)
+	Update(echo.Context, *Update) (*model.Topic, error)
 }
 
 // New creates new user application service
-func New(db *pg.DB, udb UDB, rbac RBAC, sec Securer) *User {
-	return &User{db: db, udb: udb, rbac: rbac, sec: sec}
+func New(db *pg.DB, udb UDB, rbac RBAC, sec Securer) *Topic {
+	return &Topic{db: db, udb: udb, rbac: rbac, sec: sec}
 }
 
-// Initialize initalizes User application service with defaults
-func Initialize(db *pg.DB, rbac RBAC, sec Securer) *User {
-	return New(db, pgsql.NewUser(), rbac, sec)
+// Initialize initalizes Topic application service with defaults
+func Initialize(db *pg.DB, rbac RBAC, sec Securer) *Topic {
+	return New(db, pgsql.NewTopic(), rbac, sec)
 }
 
-// User represents user application service
-type User struct {
+// Topic represents user application service
+type Topic struct {
 	db   *pg.DB
 	udb  UDB
 	rbac RBAC
@@ -42,17 +43,13 @@ type Securer interface {
 
 // UDB represents user repository interface
 type UDB interface {
-	Create(orm.DB, gorsk.User) (*gorsk.User, error)
-	View(orm.DB, int) (*gorsk.User, error)
-	List(orm.DB, *gorsk.ListQuery, *gorsk.Pagination) ([]gorsk.User, error)
-	Update(orm.DB, *gorsk.User) error
-	Delete(orm.DB, *gorsk.User) error
+	Create(orm.DB, model.Topic) (*model.Topic, error)
+	View(orm.DB, int) (*model.Topic, error)
+	List(orm.DB, *model.ListQuery, *model.Pagination) ([]model.Topic, error)
+	Update(orm.DB, *model.Topic) error
+	Delete(orm.DB, *model.Topic) error
 }
 
 // RBAC represents role-based-access-control interface
 type RBAC interface {
-	User(echo.Context) *gorsk.AuthUser
-	EnforceUser(echo.Context, int) error
-	AccountCreate(echo.Context, gorsk.AccessRole, int, int) error
-	IsLowerRole(echo.Context, gorsk.AccessRole) error
 }

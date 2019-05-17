@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-pg/pg"
 
+	"../../../../model"
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"
 )
@@ -20,14 +21,14 @@ type Topic struct{}
 
 // Custom errors
 var (
-	ErrAlreadyExists = echo.NewHTTPError(http.StatusInternalServerError, "Topicname or email already exists.")
+	ErrAlreadyExists = echo.NewHTTPError(http.StatusInternalServerError, "Topicname  already exists.")
 )
 
 // Create creates a new topic on database
-func (u *Topic) Create(db orm.DB, usr gorsk.Topic) (*gorsk.Topic, error) {
-	var topic = new(gorsk.Topic)
-	err := db.Model(topic).Where("lower(topicname) = ? or lower(email) = ? and deleted_at is null",
-		strings.ToLower(usr.Topicname), strings.ToLower(usr.Email)).Select()
+func (u *Topic) Create(db orm.DB, usr model.Topic) (*model.Topic, error) {
+	var topic = new(model.Topic)
+	err := db.Model(topic).Where("lower(topicname) = ? and deleted_at is null",
+		strings.ToLower(usr.Topicname)).Select()
 
 	if err != nil && err != pg.ErrNoRows {
 		return nil, ErrAlreadyExists
@@ -41,10 +42,10 @@ func (u *Topic) Create(db orm.DB, usr gorsk.Topic) (*gorsk.Topic, error) {
 }
 
 // View returns single topic by ID
-func (u *Topic) View(db orm.DB, id int) (*gorsk.Topic, error) {
-	var topic = new(gorsk.Topic)
-	sql := `SELECT "topic".*, "role"."id" AS "role__id", "role"."access_level" AS "role__access_level", "role"."name" AS "role__name"
-	FROM "topics" AS "topic" LEFT JOIN "roles" AS "role" ON "role"."id" = "topic"."role_id"
+func (u *Topic) View(db orm.DB, id int) (*model.Topic, error) {
+	var topic = new(model.Topic)
+	sql := `SELECT "topic".*
+	FROM "topics" AS "topic"
 	WHERE ("topic"."id" = ? and deleted_at is null)`
 	_, err := db.QueryOne(topic, sql, id)
 	if err != nil {
@@ -55,14 +56,14 @@ func (u *Topic) View(db orm.DB, id int) (*gorsk.Topic, error) {
 }
 
 // Update updates topic's contact info
-func (u *Topic) Update(db orm.DB, topic *gorsk.Topic) error {
+func (u *Topic) Update(db orm.DB, topic *model.Topic) error {
 	return db.Update(topic)
 }
 
 // List returns list of all topics retrievable for the current topic, depending on role
-func (u *Topic) List(db orm.DB, qp *gorsk.ListQuery, p *gorsk.Pagination) ([]gorsk.Topic, error) {
-	var topics []gorsk.Topic
-	q := db.Model(&topics).Column("topic.*", "Role").Limit(p.Limit).Offset(p.Offset).Where("deleted_at is null").Order("topic.id desc")
+func (u *Topic) List(db orm.DB, qp *model.ListQuery, p *model.Pagination) ([]model.Topic, error) {
+	var topics []model.Topic
+	q := db.Model(&topics).Column("topic.*").Limit(p.Limit).Offset(p.Offset).Where("deleted_at is null").Order("topic.id desc")
 	if qp != nil {
 		q.Where(qp.Query, qp.ID)
 	}
@@ -73,6 +74,6 @@ func (u *Topic) List(db orm.DB, qp *gorsk.ListQuery, p *gorsk.Pagination) ([]gor
 }
 
 // Delete sets deleted_at for a topic
-func (u *Topic) Delete(db orm.DB, topic *gorsk.Topic) error {
+func (u *Topic) Delete(db orm.DB, topic *model.Topic) error {
 	return db.Delete(topic)
 }

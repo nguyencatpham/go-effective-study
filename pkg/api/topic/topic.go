@@ -2,22 +2,19 @@
 package topic
 
 import (
+	"../model"
 	"github.com/labstack/echo"
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/query"
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/structs"
 )
 
 // Create creates a new topic account
-func (u *Topic) Create(c echo.Context, req gorsk.Topic) (*gorsk.Topic, error) {
-	if err := u.rbac.AccountCreate(c, req.RoleID, req.CompanyID, req.LocationID); err != nil {
-		return nil, err
-	}
-	req.Password = u.sec.Hash(req.Password)
+func (u *Topic) Create(c echo.Context, req model.Topic) (*model.Topic, error) {
 	return u.udb.Create(u.db, req)
 }
 
 // List returns list of topics
-func (u *Topic) List(c echo.Context, p *gorsk.Pagination) ([]gorsk.Topic, error) {
+func (u *Topic) List(c echo.Context, p *model.Pagination) ([]model.Topic, error) {
 	au := u.rbac.Topic(c)
 	q, err := query.List(au)
 	if err != nil {
@@ -27,10 +24,7 @@ func (u *Topic) List(c echo.Context, p *gorsk.Pagination) ([]gorsk.Topic, error)
 }
 
 // View returns single topic
-func (u *Topic) View(c echo.Context, id int) (*gorsk.Topic, error) {
-	if err := u.rbac.EnforceTopic(c, id); err != nil {
-		return nil, err
-	}
+func (u *Topic) View(c echo.Context, id int) (*model.Topic, error) {
 	return u.udb.View(u.db, id)
 }
 
@@ -38,9 +32,6 @@ func (u *Topic) View(c echo.Context, id int) (*gorsk.Topic, error) {
 func (u *Topic) Delete(c echo.Context, id int) error {
 	topic, err := u.udb.View(u.db, id)
 	if err != nil {
-		return err
-	}
-	if err := u.rbac.IsLowerRole(c, topic.Role.AccessLevel); err != nil {
 		return err
 	}
 	return u.udb.Delete(u.db, topic)
@@ -57,10 +48,7 @@ type Update struct {
 }
 
 // Update updates topic's contact information
-func (u *Topic) Update(c echo.Context, req *Update) (*gorsk.Topic, error) {
-	if err := u.rbac.EnforceTopic(c, req.ID); err != nil {
-		return nil, err
-	}
+func (u *Topic) Update(c echo.Context, req *Update) (*model.Topic, error) {
 
 	topic, err := u.udb.View(u.db, req.ID)
 	if err != nil {

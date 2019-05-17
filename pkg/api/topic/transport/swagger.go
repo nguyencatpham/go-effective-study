@@ -4,21 +4,21 @@ import (
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
-// User model response
-// swagger:response userResp
-type swaggUserResponse struct {
+// Topic model response
+// swagger:response topicResp
+type swaggTopicResponse struct {
 	// in:body
 	Body struct {
-		*gorsk.User
+		*model.Topic
 	}
 }
 
-// Users model response
-// swagger:response userListResp
-type swaggUserListResponse struct {
+// Topics model response
+// swagger:response topicListResp
+type swaggTopicListResponse struct {
 	// in:body
 	Body struct {
-		Users []gorsk.User `json:"users"`
-		Page  int          `json:"page"`
+		Topics []model.Topic `json:"topics"`
+		Page   int           `json:"page"`
 	}
 }

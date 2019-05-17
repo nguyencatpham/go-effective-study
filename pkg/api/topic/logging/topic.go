@@ -1,36 +1,37 @@
-package user
+package topic
 
 import (
 	"time"
 
+	"../../../../model"
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/user"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic"
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
-// New creates new user logging service
-func New(svc user.Service, logger gorsk.Logger) *LogService {
+// New creates new topic logging service
+func New(svc topic.Service, logger model.Logger) *LogService {
 	return &LogService{
 		Service: svc,
 		logger:  logger,
 	}
 }
 
-// LogService represents user logging service
+// LogService represents topic logging service
 type LogService struct {
-	user.Service
-	logger gorsk.Logger
+	topic.Service
+	logger model.Logger
 }
 
-const name = "user"
+const name = "topic"
 
 // Create logging
-func (ls *LogService) Create(c echo.Context, req gorsk.User) (resp *gorsk.User, err error) {
+func (ls *LogService) Create(c echo.Context, req model.Topic) (resp *model.Topic, err error) {
 	defer func(begin time.Time) {
 		req.Password = "xxx-redacted-xxx"
 		ls.logger.Log(
 			c,
-			name, "Create user request", err,
+			name, "Create topic request", err,
 			map[string]interface{}{
 				"req":  req,
 				"resp": resp,
@@ -42,11 +43,11 @@ func (ls *LogService) Create(c echo.Context, req gorsk.User) (resp *gorsk.User, 
 }
 
 // List logging
-func (ls *LogService) List(c echo.Context, req *gorsk.Pagination) (resp []gorsk.User, err error) {
+func (ls *LogService) List(c echo.Context, req *model.Pagination) (resp []model.Topic, err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,
-			name, "List user request", err,
+			name, "List topic request", err,
 			map[string]interface{}{
 				"req":  req,
 				"resp": resp,
@@ -58,11 +59,11 @@ func (ls *LogService) List(c echo.Context, req *gorsk.Pagination) (resp []gorsk.
 }
 
 // View logging
-func (ls *LogService) View(c echo.Context, req int) (resp *gorsk.User, err error) {
+func (ls *LogService) View(c echo.Context, req int) (resp *model.Topic, err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,
-			name, "View user request", err,
+			name, "View topic request", err,
 			map[string]interface{}{
 				"req":  req,
 				"resp": resp,
@@ -78,7 +79,7 @@ func (ls *LogService) Delete(c echo.Context, req int) (err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,
-			name, "Delete user request", err,
+			name, "Delete topic request", err,
 			map[string]interface{}{
 				"req":  req,
 				"took": time.Since(begin),
@@ -89,11 +90,11 @@ func (ls *LogService) Delete(c echo.Context, req int) (err error) {
 }
 
 // Update logging
-func (ls *LogService) Update(c echo.Context, req *user.Update) (resp *gorsk.User, err error) {
+func (ls *LogService) Update(c echo.Context, req *topic.Update) (resp *model.Topic, err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,
-			name, "Update user request", err,
+			name, "Update topic request", err,
 			map[string]interface{}{
 				"req":  req,
 				"resp": resp,
