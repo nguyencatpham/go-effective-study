@@ -130,3 +130,5 @@ gittag:
 	git tag -a "$(VERSION)" -m "$(VERSION)"
 	git push --tags
 quicktag: ungittag commit gittag
+dep:
+	env GIT_TERMINAL_PROMPT=1 dep ensure

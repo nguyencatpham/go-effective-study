@@ -6,12 +6,16 @@ database:
   maxRetries: 5
   createschema: false
   psn: postgres://admin:Onsky@$32!@postgres.onskycloud.com:5432/oscar_db?sslmode=disable
+  psnBase: postgres://admin:Onsky@$32!@postgres.onskycloud.com:5432/postgres?sslmode=disable
 
 server:
+  host: "localhost:8080"
   port: :8080
   debug: true
   read_timeout_seconds: 10
   write_timeout_seconds: 5
+  swagger_ui_path: ./assets/swaggerui
+  swagger_json: "./assets/swaggerui/swagger.json"
 
 jwt:
   secret: jwtrealm # Change this value

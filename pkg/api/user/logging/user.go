@@ -9,7 +9,7 @@ import (
 )
 
 // New creates new user logging service
-func New(svc user.Service, logger gorsk.Logger) *LogService {
+func New(svc user.Service, logger model.Logger) *LogService {
 	return &LogService{
 		Service: svc,
 		logger:  logger,
@@ -19,13 +19,13 @@ func New(svc user.Service, logger gorsk.Logger) *LogService {
 // LogService represents user logging service
 type LogService struct {
 	user.Service
-	logger gorsk.Logger
+	logger model.Logger
 }
 
 const name = "user"
 
 // Create logging
-func (ls *LogService) Create(c echo.Context, req gorsk.User) (resp *gorsk.User, err error) {
+func (ls *LogService) Create(c echo.Context, req model.User) (resp *model.User, err error) {
 	defer func(begin time.Time) {
 		req.Password = "xxx-redacted-xxx"
 		ls.logger.Log(
@@ -42,7 +42,7 @@ func (ls *LogService) Create(c echo.Context, req gorsk.User) (resp *gorsk.User, 
 }
 
 // List logging
-func (ls *LogService) List(c echo.Context, req *gorsk.Pagination) (resp []gorsk.User, err error) {
+func (ls *LogService) List(c echo.Context, req *model.Pagination) (resp []model.User, err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,
@@ -58,7 +58,7 @@ func (ls *LogService) List(c echo.Context, req *gorsk.Pagination) (resp []gorsk.
 }
 
 // View logging
-func (ls *LogService) View(c echo.Context, req int) (resp *gorsk.User, err error) {
+func (ls *LogService) View(c echo.Context, req int) (resp *model.User, err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,
@@ -89,7 +89,7 @@ func (ls *LogService) Delete(c echo.Context, req int) (err error) {
 }
 
 // Update logging
-func (ls *LogService) Update(c echo.Context, req *user.Update) (resp *gorsk.User, err error) {
+func (ls *LogService) Update(c echo.Context, req *user.Update) (resp *model.User, err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,

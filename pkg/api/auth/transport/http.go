@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/labstack/echo"
 )
@@ -53,6 +54,12 @@ func NewHTTP(svc auth.Service, e *echo.Echo, mw echo.MiddlewareFunc) {
 	//  200: userResp
 	//  500: err
 	e.GET("/me", h.me, mw)
+	// swagger:route POST /me auth meReq
+	// Posts user's info from session.
+	// responses:
+	//  200: userResp
+	//  500: err
+	e.POST("/register", h.register, mw)
 }
 
 type credentials struct {
@@ -86,4 +93,8 @@ func (h *HTTP) me(c echo.Context) error {
 		return err
 	}
 	return c.JSON(http.StatusOK, user)
+}
+func (h *HTTP) register(c echo.Context) error {
+
+	return c.JSON(http.StatusOK, &model.User{})
 }

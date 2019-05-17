@@ -9,7 +9,7 @@ import (
 )
 
 // Create creates a new user account
-func (u *User) Create(c echo.Context, req gorsk.User) (*gorsk.User, error) {
+func (u *User) Create(c echo.Context, req model.User) (*model.User, error) {
 	if err := u.rbac.AccountCreate(c, req.RoleID, req.CompanyID, req.LocationID); err != nil {
 		return nil, err
 	}
@@ -18,7 +18,7 @@ func (u *User) Create(c echo.Context, req gorsk.User) (*gorsk.User, error) {
 }
 
 // List returns list of users
-func (u *User) List(c echo.Context, p *gorsk.Pagination) ([]gorsk.User, error) {
+func (u *User) List(c echo.Context, p *model.Pagination) ([]model.User, error) {
 	au := u.rbac.User(c)
 	q, err := query.List(au)
 	if err != nil {
@@ -28,7 +28,7 @@ func (u *User) List(c echo.Context, p *gorsk.Pagination) ([]gorsk.User, error) {
 }
 
 // View returns single user
-func (u *User) View(c echo.Context, id int) (*gorsk.User, error) {
+func (u *User) View(c echo.Context, id int) (*model.User, error) {
 	if err := u.rbac.EnforceUser(c, id); err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ type Update struct {
 }
 
 // Update updates user's contact information
-func (u *User) Update(c echo.Context, req *Update) (*gorsk.User, error) {
+func (u *User) Update(c echo.Context, req *Update) (*model.User, error) {
 	if err := u.rbac.EnforceUser(c, req.ID); err != nil {
 		return nil, err
 	}

@@ -1,4 +1,4 @@
-package gorsk
+package model
 
 // Topic detail represents topic for english lesson model
 type TopicDetail struct {

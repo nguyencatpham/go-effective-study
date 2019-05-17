@@ -30,10 +30,10 @@ type Configuration struct {
 
 // Database holds data necessery for database configuration
 type Database struct {
-	DBName       string `yaml:"dbName,omitempty" json:"name,omitempty"`
-	PSN          string `yaml:"psn,omitempty" json:"name,omitempty"`
+	DBName       string `yaml:"dbName,omitempty" json:"dbname,omitempty"`
+	PSN          string `yaml:"psn,omitempty" json:"psn,omitempty"`
 	LogQueries   bool   `yaml:"log_queries,omitempty"`
-	PSNBase      string `yaml:"psnBase,omitempty" json:"name,omitempty"`
+	PSNBase      string `yaml:"psnBase,omitempty" json:"psnBase,omitempty"`
 	Log          bool
 	CreateSchema bool
 	Timeout      int
@@ -42,10 +42,13 @@ type Database struct {
 
 // Server holds data necessery for server configuration
 type Server struct {
-	Port         string `yaml:"port,omitempty"`
-	Debug        bool   `yaml:"debug,omitempty"`
-	ReadTimeout  int    `yaml:"read_timeout_seconds,omitempty"`
-	WriteTimeout int    `yaml:"write_timeout_seconds,omitempty"`
+	Host          string `yaml:"host,omitempty"`
+	Port          string `yaml:"port,omitempty"`
+	Debug         bool   `yaml:"debug,omitempty"`
+	ReadTimeout   int    `yaml:"read_timeout_seconds,omitempty"`
+	WriteTimeout  int    `yaml:"write_timeout_seconds,omitempty"`
+	SwaggerUIPath string `yaml:"swagger_ui_path,omitempty"`
+	SwaggerJSON   string `yaml:"swagger_json,omitempty"`
 }
 
 // JWT holds data necessery for JWT configuration

@@ -53,7 +53,7 @@ func (j *Service) MWFunc() echo.MiddlewareFunc {
 			locationID := int(claims["l"].(float64))
 			username := claims["u"].(string)
 			email := claims["e"].(string)
-			role := gorsk.AccessRole(claims["r"].(float64))
+			role := model.AccessRole(claims["r"].(float64))
 
 			c.Set("id", id)
 			c.Set("company_id", companyID)
@@ -72,16 +72,16 @@ func (j *Service) ParseToken(c echo.Context) (*jwt.Token, error) {
 
 	token := c.Request().Header.Get("Authorization")
 	if token == "" {
-		return nil, gorsk.ErrGeneric
+		return nil, model.ErrGeneric
 	}
 	parts := strings.SplitN(token, " ", 2)
 	if !(len(parts) == 2 && parts[0] == "Bearer") {
-		return nil, gorsk.ErrGeneric
+		return nil, model.ErrGeneric
 	}
 
 	return jwt.Parse(parts[1], func(token *jwt.Token) (interface{}, error) {
 		if j.algo != token.Method {
-			return nil, gorsk.ErrGeneric
+			return nil, model.ErrGeneric
 		}
 		return j.key, nil
 	})
@@ -89,7 +89,7 @@ func (j *Service) ParseToken(c echo.Context) (*jwt.Token, error) {
 }
 
 // GenerateToken generates new JWT token and populates it with user data
-func (j *Service) GenerateToken(u *gorsk.User) (string, string, error) {
+func (j *Service) GenerateToken(u *model.User) (string, string, error) {
 	expire := time.Now().Add(j.duration)
 
 	token := jwt.NewWithClaims((j.algo), jwt.MapClaims{

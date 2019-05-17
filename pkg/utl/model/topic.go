@@ -1,4 +1,4 @@
-package gorsk
+package model
 
 // TopicType represents type of topic
 type TopicType int

@@ -79,7 +79,7 @@ func TestGenerateToken(t *testing.T) {
 		name      string
 		wantToken string
 		algo      string
-		req       *gorsk.User
+		req       *model.User
 	}{
 		{
 			name: "Invalid algo",
@@ -88,14 +88,14 @@ func TestGenerateToken(t *testing.T) {
 		{
 			name: "Success",
 			algo: "HS256",
-			req: &gorsk.User{
-				Base: gorsk.Base{
+			req: &model.User{
+				Base: model.Base{
 					ID: 1,
 				},
 				Username: "johndoe",
 				Email:    "johndoe@mail.com",
-				Role: &gorsk.Role{
-					AccessLevel: gorsk.SuperAdminRole,
+				Role: &model.Role{
+					AccessLevel: model.SuperAdminRole,
 				},
 				CompanyID:  1,
 				LocationID: 1,

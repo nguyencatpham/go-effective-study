@@ -68,7 +68,7 @@ type changeReq struct {
 func (h *HTTP) change(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return gorsk.ErrBadRequest
+		return model.ErrBadRequest
 	}
 
 	p := new(changeReq)

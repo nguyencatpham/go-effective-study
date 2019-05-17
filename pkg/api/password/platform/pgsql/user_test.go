@@ -15,7 +15,7 @@ func TestView(t *testing.T) {
 		name     string
 		wantErr  bool
 		id       int
-		wantData *gorsk.User
+		wantData *model.User
 	}{
 		{
 			name:    "User does not exist",
@@ -25,7 +25,7 @@ func TestView(t *testing.T) {
 		{
 			name: "Success",
 			id:   2,
-			wantData: &gorsk.User{
+			wantData: &model.User{
 				Email:      "tomjones@mail.com",
 				FirstName:  "Tom",
 				LastName:   "Jones",
@@ -34,7 +34,7 @@ func TestView(t *testing.T) {
 				CompanyID:  1,
 				LocationID: 1,
 				Password:   "newPass",
-				Base: gorsk.Base{
+				Base: model.Base{
 					ID: 2,
 				},
 			},
@@ -44,9 +44,9 @@ func TestView(t *testing.T) {
 	dbCon := mock.NewPGContainer(t)
 	defer dbCon.Shutdown()
 
-	db := mock.NewDB(t, dbCon, &gorsk.Role{}, &gorsk.User{})
+	db := mock.NewDB(t, dbCon, &model.Role{}, &model.User{})
 
-	if err := mock.InsertMultiple(db, &gorsk.Role{
+	if err := mock.InsertMultiple(db, &model.Role{
 		ID:          1,
 		AccessLevel: 1,
 		Name:        "SUPER_ADMIN"}, cases[1].wantData); err != nil {
@@ -76,13 +76,13 @@ func TestUpdate(t *testing.T) {
 	cases := []struct {
 		name     string
 		wantErr  bool
-		usr      *gorsk.User
-		wantData *gorsk.User
+		usr      *model.User
+		wantData *model.User
 	}{
 		{
 			name: "Success",
-			usr: &gorsk.User{
-				Base: gorsk.Base{
+			usr: &model.User{
+				Base: model.Base{
 					ID: 2,
 				},
 				FirstName: "Z",
@@ -92,7 +92,7 @@ func TestUpdate(t *testing.T) {
 				Mobile:    "345678",
 				Username:  "newUsername",
 			},
-			wantData: &gorsk.User{
+			wantData: &model.User{
 				Email:      "tomjones@mail.com",
 				FirstName:  "Z",
 				LastName:   "Freak",
@@ -104,7 +104,7 @@ func TestUpdate(t *testing.T) {
 				Address:    "Address",
 				Phone:      "123456",
 				Mobile:     "345678",
-				Base: gorsk.Base{
+				Base: model.Base{
 					ID: 2,
 				},
 			},
@@ -114,9 +114,9 @@ func TestUpdate(t *testing.T) {
 	dbCon := mock.NewPGContainer(t)
 	defer dbCon.Shutdown()
 
-	db := mock.NewDB(t, dbCon, &gorsk.Role{}, &gorsk.User{})
+	db := mock.NewDB(t, dbCon, &model.Role{}, &model.User{})
 
-	if err := mock.InsertMultiple(db, &gorsk.Role{
+	if err := mock.InsertMultiple(db, &model.Role{
 		ID:          1,
 		AccessLevel: 1,
 		Name:        "SUPER_ADMIN"}, cases[0].usr); err != nil {
@@ -130,8 +130,8 @@ func TestUpdate(t *testing.T) {
 			err := udb.Update(db, tt.wantData)
 			assert.Equal(t, tt.wantErr, err != nil)
 			if tt.wantData != nil {
-				user := &gorsk.User{
-					Base: gorsk.Base{
+				user := &model.User{
+					Base: model.Base{
 						ID: tt.usr.ID,
 					},
 				}

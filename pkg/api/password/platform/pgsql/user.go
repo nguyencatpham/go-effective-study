@@ -14,8 +14,8 @@ func NewUser() *User {
 type User struct{}
 
 // View returns single user by ID
-func (u *User) View(db orm.DB, id int) (*gorsk.User, error) {
-	user := &gorsk.User{Base: gorsk.Base{ID: id}}
+func (u *User) View(db orm.DB, id int) (*model.User, error) {
+	user := &model.User{Base: model.Base{ID: id}}
 	err := db.Select(user)
 	if err != nil {
 		return nil, err
@@ -24,6 +24,6 @@ func (u *User) View(db orm.DB, id int) (*gorsk.User, error) {
 }
 
 // Update updates user's info
-func (u *User) Update(db orm.DB, user *gorsk.User) error {
+func (u *User) Update(db orm.DB, user *model.User) error {
 	return db.Update(user)
 }

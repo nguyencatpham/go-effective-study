@@ -1,4 +1,4 @@
-package gorsk
+package model
 
 // Location represents company location model
 type Location struct {

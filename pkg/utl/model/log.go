@@ -1,4 +1,4 @@
-package gorsk
+package model
 
 import "github.com/labstack/echo"
 

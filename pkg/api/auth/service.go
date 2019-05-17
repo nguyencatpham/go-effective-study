@@ -26,9 +26,9 @@ func Initialize(db *pg.DB, j TokenGenerator, sec Securer, rbac RBAC) *Auth {
 
 // Service represents auth service interface
 type Service interface {
-	Authenticate(echo.Context, string, string) (*gorsk.AuthToken, error)
-	Refresh(echo.Context, string) (*gorsk.RefreshToken, error)
-	Me(echo.Context) (*gorsk.User, error)
+	Authenticate(echo.Context, string, string) (*model.AuthToken, error)
+	Refresh(echo.Context, string) (*model.RefreshToken, error)
+	Me(echo.Context) (*model.User, error)
 }
 
 // Auth represents auth application service
@@ -42,15 +42,15 @@ type Auth struct {
 
 // UserDB represents user repository interface
 type UserDB interface {
-	View(orm.DB, int) (*gorsk.User, error)
-	FindByUsername(orm.DB, string) (*gorsk.User, error)
-	FindByToken(orm.DB, string) (*gorsk.User, error)
-	Update(orm.DB, *gorsk.User) error
+	View(orm.DB, int) (*model.User, error)
+	FindByUsername(orm.DB, string) (*model.User, error)
+	FindByToken(orm.DB, string) (*model.User, error)
+	Update(orm.DB, *model.User) error
 }
 
 // TokenGenerator represents token generator (jwt) interface
 type TokenGenerator interface {
-	GenerateToken(*gorsk.User) (string, string, error)
+	GenerateToken(*model.User) (string, string, error)
 }
 
 // Securer represents security interface
@@ -61,5 +61,5 @@ type Securer interface {
 
 // RBAC represents role-based-access-control interface
 type RBAC interface {
-	User(echo.Context) *gorsk.AuthUser
+	User(echo.Context) *model.AuthUser
 }
