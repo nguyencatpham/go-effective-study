@@ -1,0 +1,223 @@
+# Default values for helm.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+namespace: oscar
+
+entryPoint: oscar-service
+serverName: oscar-service
+serverAddress: 0.0.0.0:8080
+brokerAddress: 0.0.0.0:10001
+
+image:
+  repository: 754404031763.dkr.ecr.ap-southeast-1.amazonaws.com/oscar-service
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 8082
+
+service_internal:
+  type: ClusterIP
+  port: 8081
+
+service_micro:
+  type: ClusterIP
+  port: 8080
+
+ENV : production
+
+persistence:
+  enabled: false
+  ## redis data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"
+  accessModes:
+  - ReadWriteOnce
+  size: 1Gi
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - chart-example.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after resources:.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+configmap:
+  application:
+    min_password_strength: 1
+    templates_path: "./assets/system-templates/"
+    plugin_path: "./plugins"
+    plugin_build: "./plugins/build"
+
+  service:
+    name: iot
+    short_name: iot
+    description: "iot service"
+    resource_types:
+      - name: projects
+        actions:
+          - name: iot:listProject
+            type: List
+          - name: iot:addProject
+            type: Write
+          - name: iot:deleteProject
+            type: Write
+          - name: iot:editProject
+            type: Write
+          - name: iot:readProject
+            type: Read
+      - name: priorities
+        actions:
+          - name: iot:listPriority
+            type: List
+          - name: iot:addPriority
+            type: Write
+          - name: iot:deletePriority
+            type: Write
+          - name: iot:editPriority
+            type: Write
+          - name: iot:readPriority
+            type: Read
+      - name: things
+        actions:
+          - name: iot:listThing
+            type: List
+          - name: iot:addThing
+            type: Write
+          - name: iot:deleteThing
+            type: Write
+          - name: iot:editThing
+            type: Write
+          - name: iot:readThing
+            type: Read
+          - name: iot:controlThing
+            type: Write
+      - name: templates
+        actions:
+          - name: iot:listTemplate
+            type: List
+          - name: iot:addTemplate
+            type: Write
+          - name: iot:deleteTemplate
+            type: Write
+          - name: iot:editTemplate
+            type: Write
+          - name: iot:readTemplate
+            type: Read
+      - name: topic
+        actions:
+          - name: iot:publish
+            type: Write
+          - name: iot:subscribe
+            type: Read
+      - name: certificate
+        actions:
+          - name: iot:listCertificate
+            type: List
+          - name: iot:addCertificate
+            type: Write
+          - name: iot:deleteCertificate
+            type: Write
+          - name: iot:readCertificate
+            type: Read
+      - name: policy
+        actions:
+          - name: iot:listPolicy
+            type: List
+          - name: iot:addPolicy
+            type: Write
+          - name: iot:deletePolicy
+            type: Write
+          - name: iot:readPolicy
+            type: Read
+  db:
+    dbName: system_iot_service_db
+    log: true
+    timeout: 5 # Query timeout in seconds
+    maxRetries: 5
+    createschema: false
+    psn: postgres://admin:Onsky@$32!@postgres-postgresql.default:5432/system_iot_service_db?sslmode=disable
+    psnBase: postgres://admin:Onsky@$32!@postgres-postgresql.default:5432/postgres?sslmode=disable
+
+  server:
+    host: api-dev.onskycloud.com/iot-service
+    port: ":8082"
+    debug: true
+    readtimeout: 10 # Request read timeout in minutes
+    writetimeout: 5 # Response write timeout in minutes
+    swagger_ui_path: ./assets/swaggerui
+    swagger_json: "./assets/swaggerui/swagger.json"
+  internal_server:
+    host: api-dev.onskycloud.com/iot-service
+    port: ":8081"
+    debug: true
+    readtimeout: 10 # Request read timeout in minutes
+    writetimeout: 5 # Response write timeout in minutes
+    swagger_ui_path: ./assets/swaggerui
+    swagger_json: "./assets/swaggerui/swagger.json"
+
+  jwt:
+    signingalgorithm: HS256
+    secret: "Onsky.smarthome"
+
+  jwt_internal:
+    token: "hfiuewhr37984573jf0y3fnhiwyr8329423fjefh3yr83fkuf0934ffkopif09328"
+
+  redis:
+    addr: "redis-master.default:6379"
+    password: "Onsky.bhfvps"
+
+  mailservice:
+    url: "http://agw-kong-proxy.default:8000/mail/v1/mails"
+    token: "dd2849283hfw82398274021432rt2fh73278y4921y4hfsjhcbnzcy87"
+  authen_service:
+    ping: "https://api-dev.onskycloud.com/authen/v1/internal/permission/ping"
+    validate: "https://api-dev.onskycloud.com/authen/v1/internal/permission/validate?action=%s&resources=%s"
+  resource_service:
+    check_service: "https://api-dev.onskycloud.com/resource-service/v1/api/services/shortname/%s"
+    update_service: "https://api-dev.onskycloud.com/resource-service/v1/api/services/%s"
+    register: "https://api-dev.onskycloud.com/resource-service/v1/api/services/register"
+    token: "sdfiusfi98234632rwhczyr392yr02u-23r9t34uy23r9t3fsfskhfo"
+  key_service:
+    gen_key: "https://api-dev.onskycloud.com/key-service/keys/client"
+    rootCA: "https://api-dev.onskycloud.com/key-service/keys/rootCA"
+    token: ""
+  broker_service:
+    command: "https://api-dev.onskycloud.com/broker/v1/api/mqtt/command"
+    token: "esyr9823r32hwfewyr9832y2roiejwoifu2389u5roi3wjfoiweu8r23u"
+
+
+

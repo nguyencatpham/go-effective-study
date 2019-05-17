@@ -62,8 +62,7 @@ prebuild:
 	GOOS=linux go build -o plugins/build/alerts/equal plugins/alerts/equal.go
 
 build-go:
-	GOOS=linux go build -o $(APP_NAME) cmd/api/main.go
-	# go build -o iot-service cmd/api/main.go
+	GOARCH=amd64 CGO_ENABLED=0 GOOS=linux go build -o $(APP_NAME) cmd/api/main.go
 swagger:
 	swagger generate spec -m -b ./pkg/api -o ./assets/swaggerui/swagger.json
 swagger-internal:
@@ -132,3 +131,5 @@ gittag:
 quicktag: ungittag commit gittag
 dep:
 	env GIT_TERMINAL_PROMPT=1 dep ensure
+deploy-full: build-go build-docker publish clear deploy
+deploy-local: build-go build-docker

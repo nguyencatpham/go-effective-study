@@ -12,12 +12,13 @@ RUN apk add --no-cache tzdata && \
 # ENV PATH $GOPATH/bin:$PATH
 
 WORKDIR /onsky/apps/
-RUN mkdir plugins
+# RUN mkdir plugins
 COPY ${APP_NAME} .
-COPY config ./config
+# COPY config ./config
 # COPY plugins/alerts ./plugins/alerts
 # COPY plugins ./plugins
-COPY assets/ ./assets
+# COPY assets/ ./assets
+COPY ./cmd/api/conf.local.yaml ./cmd/api/conf.local.yaml
 
 EXPOSE 8080 10001
 

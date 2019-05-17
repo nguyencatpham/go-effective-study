@@ -1,0 +1,95 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "helm.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ template "helm.name" . }}
+    chart: {{ template "helm.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "helm.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "helm.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      volumes:
+      - name: data
+      {{- if .Values.persistence.enabled }}
+        {{- if not (empty .Values.persistence.name) }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.name }}
+        {{- else }}
+        persistentVolumeClaim:
+          claimName: {{ template "helm.fullname" . }}
+        {{- end }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      {{- if .Values.configmap }}
+      - name: config
+        configMap:
+          name: {{ template "helm.fullname" . }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          command: [
+            "./{{ .Values.entryPoint }}",
+            "--server_name={{ .Values.serverName }}",
+            "--server_address={{ .Values.serverAddress }}",
+            "--broker_address={{ .Values.brokerAddress }}"
+          ]
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+            - name: http-internal
+              containerPort: {{ .Values.service_internal.port }}
+              protocol: TCP
+            - name: http-micro
+              containerPort: {{ .Values.service_micro.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          env:
+            - name: ENV
+              value: app
+          volumeMounts:
+          {{- if .Values.configmap }}
+          - name: config
+            mountPath: /onsky/apps/config/app.yaml
+            subPath: app.yaml
+          {{- end }}
+          resources:
+          {{ toYaml .Values.resources | indent 12 }}
+              {{- with .Values.nodeSelector }}
+
+
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+
+

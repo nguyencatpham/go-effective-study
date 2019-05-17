@@ -1,0 +1,16 @@
+{{- if  .Values.configmap  }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "helm.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ template "helm.name" . }}
+    chart: {{ template "helm.chart" . }}
+    release: {{ .Release.Name | quote }}
+    heritage: {{ .Release.Service | quote }}
+
+data:
+  app.yaml: |-
+{{ toYaml .Values.configmap | indent 4 }}
+{{- end }}

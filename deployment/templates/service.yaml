@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "helm.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ template "helm.name" . }}
+    chart: {{ template "helm.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service_internal.port }}
+      targetPort: http-internal
+      protocol: TCP
+      name: http-internal
+    - port: {{ .Values.service_micro.port }}
+      targetPort: http-micro
+      protocol: TCP
+      name: http-micro
+  selector:
+    app: {{ template "helm.name" . }}
+    release: {{ .Release.Name }}
