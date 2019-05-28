@@ -3,6 +3,7 @@ package config
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -64,4 +65,50 @@ type JWT struct {
 type Application struct {
 	MinPasswordStr int    `yaml:"min_password_strength,omitempty"`
 	SwaggerUIPath  string `yaml:"swagger_ui_path,omitempty"`
+}
+
+type ErrorDict struct {
+	ErrorList []ErrorMessage `yaml:"error_list,omitempty" json:"errorList,omitempty"`
+}
+
+func LoadConfig(path string) (*Configuration, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	bytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, fmt.Errorf("error reading config file, %s", err)
+	}
+	var cfg = new(Configuration)
+	if err := yaml.Unmarshal(bytes, cfg); err != nil {
+		return nil, fmt.Errorf("unable to decode into struct, %v", err)
+	}
+	return cfg, nil
+}
+
+func LoadErrorList() (*ErrorDict, error) {
+	path := "./config/errors.yaml"
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	bytes, err := ioutil.ReadAll(file)
+	if err != nil {
+		return nil, fmt.Errorf("error reading error list file, %s", err)
+	}
+	var cfg = new(ErrorDict)
+	if err := yaml.Unmarshal(bytes, cfg); err != nil {
+		return nil, fmt.Errorf("unable to decode into struct, %v", err)
+	}
+	return cfg, nil
+}
+
+type ErrorMessage struct {
+	Type string `yaml:"type,omitempty" json:"type,omitempty"`
+	Text string `yaml:"text,omitempty" json:"text,omitempty"`
 }

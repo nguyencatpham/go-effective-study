@@ -2,11 +2,12 @@ package helper
 
 import (
 	// "fmt"
+
 	"log"
 
 	"github.com/labstack/echo"
 	"github.com/thoas/go-funk"
-	"gitlab.com/onsky/go-iot-service/pkg/utl/config"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/config"
 )
 
 var appConfig *config.Configuration

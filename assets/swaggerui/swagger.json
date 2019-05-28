@@ -556,9 +556,9 @@
       "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "HTTP": {
-      "description": "HTTP represents password http transport service",
+      "description": "HTTP represents user http service",
       "type": "object",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
     },
     "Role": {
       "description": "Role model",
