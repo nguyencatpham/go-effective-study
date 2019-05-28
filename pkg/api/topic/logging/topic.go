@@ -3,7 +3,6 @@ package topic
 import (
 	"time"
 
-	"../../../../model"
 	"github.com/labstack/echo"
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic"
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
@@ -28,7 +27,6 @@ const name = "topic"
 // Create logging
 func (ls *LogService) Create(c echo.Context, req model.Topic) (resp *model.Topic, err error) {
 	defer func(begin time.Time) {
-		req.Password = "xxx-redacted-xxx"
 		ls.logger.Log(
 			c,
 			name, "Create topic request", err,

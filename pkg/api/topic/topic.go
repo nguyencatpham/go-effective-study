@@ -2,9 +2,8 @@
 package topic
 
 import (
-	"../model"
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/query"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/structs"
 )
 
@@ -15,11 +14,7 @@ func (u *Topic) Create(c echo.Context, req model.Topic) (*model.Topic, error) {
 
 // List returns list of topics
 func (u *Topic) List(c echo.Context, p *model.Pagination) ([]model.Topic, error) {
-	au := u.rbac.Topic(c)
-	q, err := query.List(au)
-	if err != nil {
-		return nil, err
-	}
+	q := &model.ListQuery{}
 	return u.udb.List(u.db, q, p)
 }
 

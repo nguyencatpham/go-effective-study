@@ -22,3 +22,26 @@ type swaggTopicListResponse struct {
 		Page   int           `json:"page"`
 	}
 }
+
+// Topic create request
+// swagger:model topicCreate
+type createReq struct {
+	Name        string          `json:"name"`
+	Description string          `json:"description"`
+	Type        model.TopicType `json:"type"`
+}
+type listResponse struct {
+	Topics []model.Topic `json:"topics"`
+	Page   int           `json:"page"`
+}
+
+// Topic update request
+// swagger:model topicUpdate
+type updateReq struct {
+	ID        int     `json:"-"`
+	FirstName *string `json:"first_name,omitempty" validate:"omitempty,min=2"`
+	LastName  *string `json:"last_name,omitempty" validate:"omitempty,min=2"`
+	Mobile    *string `json:"mobile,omitempty"`
+	Phone     *string `json:"phone,omitempty"`
+	Address   *string `json:"address,omitempty"`
+}

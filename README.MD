@@ -1,4 +1,4 @@
-# GORSK - GO(lang) Restful Starter Kit
+# Go Effective Study
 
 [![Build Status](https://travis-ci.org/ribice/gorsk.svg?branch=master)](https://travis-ci.org/ribice/gorsk)
 [![codecov](https://codecov.io/gh/ribice/gorsk/branch/master/graph/badge.svg)](https://codecov.io/gh/ribice/gorsk)

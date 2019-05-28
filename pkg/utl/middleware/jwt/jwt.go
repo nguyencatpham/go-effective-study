@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -39,6 +40,7 @@ type Service struct {
 
 // MWFunc makes JWT implement the Middleware interface.
 func (j *Service) MWFunc() echo.MiddlewareFunc {
+	log.Printf("check authen")
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			token, err := j.ParseToken(c)

@@ -18,14 +18,28 @@ type HTTP struct {
 func NewHTTP(svc topic.Service, er *echo.Group) {
 	h := HTTP{svc}
 	ur := er.Group("/topics")
-	// swagger:route POST /v1/topics topics topicCreate
-	// Creates new topic account.
+	// swagger:operation POST /v1/topics topics topicCreate
+	// ---
+	// summary: Returns topic created.
+	// description: Returns list of topics. Depending on the topic role requesting it, it may return all topics for SuperAdmin/Admin topics, all company/location topics for Company/Location admins, and an error for non-admin topics.
+	// parameters:
+	// - name: request
+	//   in: body
+	//   description: Request body
+	//   required: true
+	//   schema:
+	//     "$ref": "#/definitions/topicCreate"
 	// responses:
-	//  200: topicResp
-	//  400: errMsg
-	//  401: err
-	//  403: errMsg
-	//  500: err
+	//   "200":
+	//     "$ref": "#/responses/topicListResp"
+	//   "400":
+	//     "$ref": "#/responses/errMsg"
+	//   "401":
+	//     "$ref": "#/responses/err"
+	//   "403":
+	//     "$ref": "#/responses/err"
+	//   "500":
+	//     "$ref": "#/responses/err"
 	ur.POST("", h.create)
 
 	// swagger:operation GET /v1/topics topics listTopics
@@ -139,21 +153,6 @@ var (
 	ErrPasswordsNotMaching = echo.NewHTTPError(http.StatusBadRequest, "passwords do not match")
 )
 
-// Topic create request
-// swagger:model topicCreate
-type createReq struct {
-	FirstName       string `json:"first_name" validate:"required"`
-	LastName        string `json:"last_name" validate:"required"`
-	Topicname       string `json:"topicname" validate:"required,min=3,alphanum"`
-	Password        string `json:"password" validate:"required,min=8"`
-	PasswordConfirm string `json:"password_confirm" validate:"required"`
-	Email           string `json:"email" validate:"required,email"`
-
-	CompanyID  int              `json:"company_id" validate:"required"`
-	LocationID int              `json:"location_id" validate:"required"`
-	RoleID     model.AccessRole `json:"role_id" validate:"required"`
-}
-
 func (h *HTTP) create(c echo.Context) error {
 	r := new(createReq)
 
@@ -161,24 +160,10 @@ func (h *HTTP) create(c echo.Context) error {
 
 		return err
 	}
-
-	if r.Password != r.PasswordConfirm {
-		return ErrPasswordsNotMaching
-	}
-
-	if r.RoleID < model.SuperAdminRole || r.RoleID > model.TopicRole {
-		return model.ErrBadRequest
-	}
-
 	usr, err := h.svc.Create(c, model.Topic{
-		Topicname:  r.Topicname,
-		Password:   r.Password,
-		Email:      r.Email,
-		FirstName:  r.FirstName,
-		LastName:   r.LastName,
-		CompanyID:  r.CompanyID,
-		LocationID: r.LocationID,
-		RoleID:     r.RoleID,
+		Name:        r.Name,
+		Description: r.Description,
+		Type:        r.Type,
 	})
 
 	if err != nil {
@@ -186,11 +171,6 @@ func (h *HTTP) create(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, usr)
-}
-
-type listResponse struct {
-	Topics []model.Topic `json:"topics"`
-	Page   int           `json:"page"`
 }
 
 func (h *HTTP) list(c echo.Context) error {
@@ -220,17 +200,6 @@ func (h *HTTP) view(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, result)
-}
-
-// Topic update request
-// swagger:model topicUpdate
-type updateReq struct {
-	ID        int     `json:"-"`
-	FirstName *string `json:"first_name,omitempty" validate:"omitempty,min=2"`
-	LastName  *string `json:"last_name,omitempty" validate:"omitempty,min=2"`
-	Mobile    *string `json:"mobile,omitempty"`
-	Phone     *string `json:"phone,omitempty"`
-	Address   *string `json:"address,omitempty"`
 }
 
 func (h *HTTP) update(c echo.Context) error {

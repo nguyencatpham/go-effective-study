@@ -55,7 +55,7 @@ stop: ## Stop and remove a running container
 stopall:
 	docker rm -f `docker ps -a -q`
 
-run-go:
+run-go: swagger
 	go run cmd/api/main.go
 
 prebuild:
@@ -64,7 +64,8 @@ prebuild:
 build-go:
 	GOARCH=amd64 CGO_ENABLED=0 GOOS=linux go build -o $(APP_NAME) cmd/api/main.go
 swagger:
-	swagger generate spec -m -b ./pkg/api -o ./assets/swaggerui/swagger.json
+	# swagger generate spec -m -b ./pkg/api -o ./assets/swaggerui/swagger.json
+	swagger generate spec -m -b ./cmd/api -o ./assets/swaggerui/swagger.json
 swagger-internal:
 	swagger generate spec -m -b ./pkg/intercom -o ./assets/swaggerui/swagger-internal.json
 

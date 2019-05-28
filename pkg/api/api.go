@@ -2,9 +2,9 @@
 // Use of this source code is governed by an MIT-style
 // license that can be found in the LICENSE file.
 
-// GORSK - Go(lang) restful starter kit
+// Go Effective Study
 //
-// API Docs for GORSK v1
+// API Docs for Go Effective Study v1
 //
 // 	 Terms Of Service:  N/A
 //     Schemes: http
@@ -42,6 +42,9 @@ import (
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/password"
 	pl "gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/logging"
 	pt "gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
+	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic"
+	tl "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/logging"
+	tt "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
 	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/user"
 	ul "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/logging"
 	ut "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
@@ -67,15 +70,16 @@ func Start(cfg *config.Configuration) error {
 	log := zlog.New()
 
 	e := server.New()
-	e.Static("/swaggerui", cfg.App.SwaggerUIPath)
+	e.Static("/api-docs", cfg.App.SwaggerUIPath)
 
 	at.NewHTTP(al.New(auth.Initialize(db, jwt, sec, rbac), log), e, jwt.MWFunc())
 
 	v1 := e.Group("/v1")
-	v1.Use(jwt.MWFunc())
+	// v1.Use(jwt.MWFunc())
 
 	ut.NewHTTP(ul.New(user.Initialize(db, rbac, sec), log), v1)
 	pt.NewHTTP(pl.New(password.Initialize(db, rbac, sec), log), v1)
+	tt.NewHTTP(tl.New(topic.Initialize(db, rbac, sec), log), v1)
 
 	server.Start(e, &server.Config{
 		Port:                cfg.Server.Port,

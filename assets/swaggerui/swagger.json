@@ -10,8 +10,8 @@
   ],
   "swagger": "2.0",
   "info": {
-    "description": "API Docs for GORSK v1",
-    "title": "GORSK - Go(lang) restful starter kit",
+    "description": "API Docs for Go Effective Study v1",
+    "title": "Go Effective Study",
     "contact": {
       "name": "Emir Ribic",
       "url": "https://ribice.ba",
@@ -69,6 +69,21 @@
           "auth"
         ],
         "summary": "Gets user's info from session.",
+        "operationId": "meReq",
+        "responses": {
+          "200": {
+            "$ref": "#/responses/userResp"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Posts user's info from session.",
         "operationId": "meReq",
         "responses": {
           "200": {
@@ -142,6 +157,199 @@
         "responses": {
           "200": {
             "$ref": "#/responses/ok"
+          },
+          "400": {
+            "$ref": "#/responses/errMsg"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      }
+    },
+    "/v1/topics": {
+      "get": {
+        "description": "Returns list of topics. Depending on the topic role requesting it, it may return all topics for SuperAdmin/Admin topics, all company/location topics for Company/Location admins, and an error for non-admin topics.",
+        "tags": [
+          "topics"
+        ],
+        "summary": "Returns list of topics.",
+        "operationId": "listTopics",
+        "parameters": [
+          {
+            "type": "int",
+            "description": "number of results",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "int",
+            "description": "page number",
+            "name": "page",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/topicListResp"
+          },
+          "400": {
+            "$ref": "#/responses/errMsg"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      },
+      "post": {
+        "description": "Returns list of topics. Depending on the topic role requesting it, it may return all topics for SuperAdmin/Admin topics, all company/location topics for Company/Location admins, and an error for non-admin topics.",
+        "tags": [
+          "topics"
+        ],
+        "summary": "Returns topic created.",
+        "operationId": "topicCreate",
+        "parameters": [
+          {
+            "description": "Request body",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/topicCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/topicListResp"
+          },
+          "400": {
+            "$ref": "#/responses/errMsg"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      }
+    },
+    "/v1/topics/{id}": {
+      "get": {
+        "description": "Returns a single topic by its ID.",
+        "tags": [
+          "topics"
+        ],
+        "summary": "Returns a single topic.",
+        "operationId": "getTopic",
+        "parameters": [
+          {
+            "type": "int",
+            "description": "id of topic",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/topicResp"
+          },
+          "400": {
+            "$ref": "#/responses/err"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "404": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      },
+      "delete": {
+        "description": "Deletes a topic with requested ID.",
+        "tags": [
+          "topics"
+        ],
+        "summary": "Deletes a topic",
+        "operationId": "topicDelete",
+        "parameters": [
+          {
+            "type": "int",
+            "description": "id of topic",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ok"
+          },
+          "400": {
+            "$ref": "#/responses/err"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      },
+      "patch": {
+        "description": "Updates topic's contact information -\u003e first name, last name, mobile, phone, address.",
+        "tags": [
+          "topics"
+        ],
+        "summary": "Updates topic's contact information",
+        "operationId": "topicUpdate",
+        "parameters": [
+          {
+            "type": "int",
+            "description": "id of topic",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Request body",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/topicUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/topicResp"
           },
           "400": {
             "$ref": "#/responses/errMsg"
@@ -369,6 +577,100 @@
       },
       "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
+    "Topic": {
+      "description": "Topic represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedAt"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "topic_details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TopicDetail"
+          },
+          "x-go-name": "TopicDetails"
+        },
+        "type": {
+          "$ref": "#/definitions/TopicType"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "TopicDetail": {
+      "description": "Topic detail represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedAt"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "topic": {
+          "$ref": "#/definitions/Topic"
+        },
+        "topic_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TopicID"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "TopicType": {
+      "description": "TopicType represents type of topic",
+      "type": "integer",
+      "format": "int64",
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
     "User": {
       "description": "User represents user domain model",
       "type": "object",
@@ -503,6 +805,129 @@
       "x-go-name": "changeReq",
       "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
     },
+    "swaggTopicListResponse": {
+      "description": "Topics model response",
+      "type": "object",
+      "properties": {
+        "Body": {
+          "description": "in:body",
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "Page"
+            },
+            "topics": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Topic"
+              },
+              "x-go-name": "Topics"
+            }
+          }
+        }
+      },
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+    },
+    "swaggTopicResponse": {
+      "description": "Topic model response",
+      "type": "object",
+      "properties": {
+        "Body": {
+          "description": "in:body",
+          "type": "object",
+          "properties": {
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "x-go-name": "CreatedAt"
+            },
+            "deleted_at": {
+              "type": "string",
+              "format": "date-time",
+              "x-go-name": "DeletedAt"
+            },
+            "description": {
+              "type": "string",
+              "x-go-name": "Description"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "ID"
+            },
+            "name": {
+              "type": "string",
+              "x-go-name": "Name"
+            },
+            "topic_details": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TopicDetail"
+              },
+              "x-go-name": "TopicDetails"
+            },
+            "type": {
+              "$ref": "#/definitions/TopicType"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "x-go-name": "UpdatedAt"
+            }
+          }
+        }
+      },
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+    },
+    "topicCreate": {
+      "description": "Topic create request",
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "type": {
+          "$ref": "#/definitions/TopicType"
+        }
+      },
+      "x-go-name": "createReq",
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+    },
+    "topicUpdate": {
+      "description": "Topic update request",
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string",
+          "x-go-name": "Address"
+        },
+        "first_name": {
+          "type": "string",
+          "x-go-name": "FirstName"
+        },
+        "last_name": {
+          "type": "string",
+          "x-go-name": "LastName"
+        },
+        "mobile": {
+          "type": "string",
+          "x-go-name": "Mobile"
+        },
+        "phone": {
+          "type": "string",
+          "x-go-name": "Phone"
+        }
+      },
+      "x-go-name": "updateReq",
+      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+    },
     "userCreate": {
       "description": "User create request",
       "type": "object",
@@ -624,6 +1049,72 @@
           "token": {
             "type": "string",
             "x-go-name": "Token"
+          }
+        }
+      }
+    },
+    "topicListResp": {
+      "description": "Topics model response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Page"
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Topic"
+            },
+            "x-go-name": "Topics"
+          }
+        }
+      }
+    },
+    "topicResp": {
+      "description": "Topic model response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "CreatedAt"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "DeletedAt"
+          },
+          "description": {
+            "type": "string",
+            "x-go-name": "Description"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "topic_details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TopicDetail"
+            },
+            "x-go-name": "TopicDetails"
+          },
+          "type": {
+            "$ref": "#/definitions/TopicType"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "UpdatedAt"
           }
         }
       }
