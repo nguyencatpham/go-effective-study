@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/password"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/password"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // New creates new password logging service

@@ -9,9 +9,9 @@ import (
 
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/config"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/helper"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/config"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/helper"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // Init func
@@ -94,16 +94,16 @@ func seedData(db *pg.DB) {
 func updateSwagger(cfg *config.Configuration) {
 	//-- replace host swagger
 	if cfg.Server.Host != "" {
-		log.Println("update swagger docs...")
+		log.Println("update swagger host...")
 		swaggerJSON, err := helper.Readfile(cfg.Server.SwaggerJSON)
 		checkErr(err)
 
 		m := make(map[string]interface{})
 		err = json.Unmarshal([]byte(swaggerJSON), &m)
 		checkErr(err)
-
 		value, _ := m["host"].(string)
 		swaggerJSON = strings.Replace(swaggerJSON, value, cfg.Server.Host, -1)
+		swaggerJSON = strings.Replace(swaggerJSON, "http", "https", -1)
 		err = helper.WriteFile(cfg.Server.SwaggerJSON, swaggerJSON)
 		checkErr(err)
 	}

@@ -4,10 +4,10 @@ import (
 	"testing"
 	"time"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/auth"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"

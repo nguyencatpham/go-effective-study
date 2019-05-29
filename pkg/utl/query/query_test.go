@@ -3,11 +3,11 @@ package query_test
 import (
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/labstack/echo"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/query"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/query"
 	"github.com/stretchr/testify/assert"
 )
 

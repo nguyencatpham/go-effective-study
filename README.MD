@@ -2,14 +2,14 @@
 
 [![Build Status](https://travis-ci.org/ribice/gorsk.svg?branch=master)](https://travis-ci.org/ribice/gorsk)
 [![codecov](https://codecov.io/gh/ribice/gorsk/branch/master/graph/badge.svg)](https://codecov.io/gh/ribice/gorsk)
-[![Go Report Card](https://goreportcard.com/badge/gitlab.com/nguyencatpham/go-effective-study)](https://goreportcard.com/report/gitlab.com/nguyencatpham/go-effective-study)
+[![Go Report Card](https://goreportcard.com/badge/github.com/nguyencatpham/go-effective-study)](https://goreportcard.com/report/github.com/nguyencatpham/go-effective-study)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c3cb09dbc0bc43186464/maintainability)](https://codeclimate.com/github/ribice/gorsk/maintainability)
 
 **[Gorsk V2 is released - read more about it](https://www.ribice.ba/refactoring-gorsk/)**
 
 Gorsk is a Golang starter kit for developing RESTful services. It is designed to help you kickstart your project, skipping the 'setting-up part' and jumping straight to writing business logic.
 
-Previously Gorsk was built using [Gin](https://github.com/gin-gonic/gin). Gorsk using Gin is available [HERE](https://gitlab.com/nguyencatpham/go-effective-study-gin).
+Previously Gorsk was built using [Gin](https://github.com/gin-gonic/gin). Gorsk using Gin is available [HERE](https://github.com/nguyencatpham/go-effective-study-gin).
 
 Gorsk follows SOLID principles, with package design being inspired by several package designs, including Ben Johnson's [Standard Package Layout](https://medium.com/@benbjohnson/standard-package-layout-7cdbc8391fc1), [Go Standard Package Layout](https://github.com/golang-standards/project-layout) with my own ideas applied to both. The idea for building this project and its readme structure was inspired by [this](https://github.com/qiangxue/golang-restful-starter-kit).
 
@@ -66,7 +66,7 @@ Most of these can easily be replaced with your own choices since their usage is 
 
 Using Gorsk requires having Go 1.7 or above. Once you downloaded Gorsk (either using Git or go get) you need to configure the following:
 
-1. To use Gorsk as a starting point of a real project whose package name is something like `github.com/author/project`, move the directory `$GOPATH/gitlab.com/nguyencatpham/go-effective-study` to `$GOPATH/github.com/author/project` and do a global replacement of the string `gitlab.com/nguyencatpham/go-effective-study` with `github.com/author/project`.
+1. To use Gorsk as a starting point of a real project whose package name is something like `github.com/author/project`, move the directory `$GOPATH/github.com/nguyencatpham/go-effective-study` to `$GOPATH/github.com/author/project` and do a global replacement of the string `github.com/nguyencatpham/go-effective-study` with `github.com/author/project`.
 
 2. Rename the gorsk package inside `pkg/utl/model` with your own project name, then using search & replace do a global replacement of `.gorsk` with your project name.
 
@@ -160,4 +160,4 @@ gorsk is licensed under the MIT license. Check the [LICENSE](LICENSE) file for d
 
 ## Author
 
-[Emir Ribic](https://ribice.ba)
+[Phạm Nguyên Cát](https://github.com/nguyencatpham)

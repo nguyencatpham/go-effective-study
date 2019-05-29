@@ -10,13 +10,13 @@ import (
 
 	"github.com/labstack/echo"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth/transport"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/middleware/jwt"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/server"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/auth"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/auth/transport"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/middleware/jwt"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/server"
 
 	"github.com/go-pg/pg/orm"
 	"github.com/stretchr/testify/assert"

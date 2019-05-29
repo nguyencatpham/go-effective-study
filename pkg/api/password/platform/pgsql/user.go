@@ -2,7 +2,7 @@ package pgsql
 
 import (
 	"github.com/go-pg/pg/orm"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // NewUser returns a new user database instance

@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/auth"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // New creates new auth logging service

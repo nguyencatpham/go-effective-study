@@ -4,10 +4,10 @@ import (
 	"flag"
 	"log"
 
-	"gitlab.com/nguyencatpham/go-effective-study/cmd/migration"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api"
+	"github.com/nguyencatpham/go-effective-study/cmd/migration"
+	"github.com/nguyencatpham/go-effective-study/pkg/api"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/config"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/config"
 )
 
 func main() {

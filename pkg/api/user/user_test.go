@@ -3,10 +3,10 @@ package user_test
 import (
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/user"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/user"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"

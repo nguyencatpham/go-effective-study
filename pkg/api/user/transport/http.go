@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/user"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/user"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/labstack/echo"
 )

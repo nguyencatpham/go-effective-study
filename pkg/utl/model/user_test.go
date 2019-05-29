@@ -3,7 +3,7 @@ package model_test
 import (
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 func TestChangePassword(t *testing.T) {

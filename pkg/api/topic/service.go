@@ -4,8 +4,8 @@ import (
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/platform/pgsql"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/topic/platform/pgsql"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // Service represents topic application interface

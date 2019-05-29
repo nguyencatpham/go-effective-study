@@ -4,11 +4,11 @@ import (
 	"database/sql"
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/stretchr/testify/assert"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/postgres"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/postgres"
 
 	"github.com/fortytw2/dockertest"
 )

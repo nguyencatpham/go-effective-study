@@ -6,10 +6,10 @@ import (
 	"strings"
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/middleware/jwt"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/middleware/jwt"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock"
 
 	"github.com/labstack/echo"
 	"github.com/stretchr/testify/assert"

@@ -3,11 +3,11 @@ package password_test
 import (
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/password"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/password"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock/mockdb"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/go-pg/pg/orm"
 	"github.com/labstack/echo"

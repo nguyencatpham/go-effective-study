@@ -3,9 +3,9 @@ package user
 
 import (
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/query"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/structs"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/query"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/structs"
 )
 
 // Create creates a new user account

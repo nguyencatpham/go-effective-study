@@ -3,11 +3,11 @@ package pgsql_test
 import (
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/mock"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/mock"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth/platform/pgsql"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/auth/platform/pgsql"
 
 	"github.com/stretchr/testify/assert"
 )

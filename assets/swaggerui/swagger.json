@@ -6,7 +6,7 @@
     "application/json"
   ],
   "schemes": [
-    "http"
+    "https"
   ],
   "swagger": "2.0",
   "info": {
@@ -14,16 +14,16 @@
     "title": "Go Effective Study",
     "contact": {
       "name": "Emir Ribic",
-      "url": "https://ribice.ba",
+      "url": "httpss://ribice.ba",
       "email": "ribice@gmail.com"
     },
     "license": {
       "name": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
+      "url": "https://opensource.org/licenses/MIT"
     },
     "version": "2.0.0"
   },
-  "host": "localhost:8080",
+  "host": "8080-f76958ae-2934-48df-ab1c-3a8d355f5bf8.ws-ap0.gitpod.io",
   "paths": {
     "/login": {
       "post": {
@@ -553,12 +553,12 @@
       "description": "AccessRole represents access role type",
       "type": "integer",
       "format": "int64",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "HTTP": {
-      "description": "HTTP represents user http service",
+      "description": "HTTP represents password https transport service",
       "type": "object",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
     },
     "Role": {
       "description": "Role model",
@@ -575,7 +575,7 @@
           "x-go-name": "Name"
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "Topic": {
       "description": "Topic represents topic for english lesson model",
@@ -620,7 +620,7 @@
           "x-go-name": "UpdatedAt"
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "TopicDetail": {
       "description": "Topic detail represents topic for english lesson model",
@@ -663,13 +663,13 @@
           "x-go-name": "UpdatedAt"
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "TopicType": {
       "description": "TopicType represents type of topic",
       "type": "integer",
       "format": "int64",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "User": {
       "description": "User represents user domain model",
@@ -751,7 +751,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "credentials": {
       "type": "object",
@@ -765,7 +765,7 @@
           "x-go-name": "Username"
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/auth/transport"
     },
     "listResponse": {
       "type": "object",
@@ -775,15 +775,15 @@
           "format": "int64",
           "x-go-name": "Page"
         },
-        "users": {
+        "topics": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/User"
+            "$ref": "#/definitions/Topic"
           },
-          "x-go-name": "Users"
+          "x-go-name": "Topics"
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
     },
     "pwChange": {
       "description": "Password change request",
@@ -803,7 +803,7 @@
         }
       },
       "x-go-name": "changeReq",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
     },
     "swaggTopicListResponse": {
       "description": "Topics model response",
@@ -828,7 +828,7 @@
           }
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
     },
     "swaggTopicResponse": {
       "description": "Topic model response",
@@ -879,7 +879,7 @@
           }
         }
       },
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
     },
     "topicCreate": {
       "description": "Topic create request",
@@ -898,7 +898,7 @@
         }
       },
       "x-go-name": "createReq",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
     },
     "topicUpdate": {
       "description": "Topic update request",
@@ -926,7 +926,7 @@
         }
       },
       "x-go-name": "updateReq",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
     },
     "userCreate": {
       "description": "User create request",
@@ -971,7 +971,7 @@
         }
       },
       "x-go-name": "createReq",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
     },
     "userUpdate": {
       "description": "User update request",
@@ -999,7 +999,7 @@
         }
       },
       "x-go-name": "updateReq",
-      "x-go-package": "gitlab.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
     }
   },
   "responses": {

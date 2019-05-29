@@ -3,8 +3,8 @@ package transport
 import (
 	"net/http"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/auth"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/auth"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/labstack/echo"
 )

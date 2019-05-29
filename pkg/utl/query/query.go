@@ -2,7 +2,7 @@ package query
 
 import (
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // List prepares data for list queries

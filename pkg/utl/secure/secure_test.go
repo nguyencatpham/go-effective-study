@@ -4,7 +4,7 @@ import (
 	"crypto/sha1"
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/secure"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/secure"
 	"github.com/stretchr/testify/assert"
 )
 

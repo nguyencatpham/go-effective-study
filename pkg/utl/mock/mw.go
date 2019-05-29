@@ -1,7 +1,7 @@
 package mock
 
 import (
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // JWT mock

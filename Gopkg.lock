@@ -173,6 +173,14 @@
   version = "v1.2.2"
 
 [[projects]]
+  digest = "1:94013174cb9245bbe3f0009da22a5284531dcabece9074b6b9d378af2cef1cdf"
+  name = "github.com/thoas/go-funk"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "c43409e2d5def27be9b081e316441108def35c8d"
+  version = "v0.4.0"
+
+[[projects]]
   digest = "1:af354641f23332b1a8d5d361d11b5a9171589e412a67d499633706c611acc064"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
@@ -241,6 +249,7 @@
     "github.com/nbutton23/zxcvbn-go",
     "github.com/rs/zerolog",
     "github.com/stretchr/testify/assert",
+    "github.com/thoas/go-funk",
     "golang.org/x/crypto/bcrypt",
     "gopkg.in/yaml.v2",
   ]

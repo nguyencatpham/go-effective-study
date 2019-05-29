@@ -50,6 +50,7 @@ type Server struct {
 	WriteTimeout  int    `yaml:"write_timeout_seconds,omitempty"`
 	SwaggerUIPath string `yaml:"swagger_ui_path,omitempty"`
 	SwaggerJSON   string `yaml:"swagger_json,omitempty"`
+	Schemes 	  []string `yaml:"schemes,omitempty"`
 }
 
 // JWT holds data necessery for JWT configuration

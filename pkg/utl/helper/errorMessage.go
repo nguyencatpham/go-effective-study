@@ -7,7 +7,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/thoas/go-funk"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/config"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/config"
 )
 
 var appConfig *config.Configuration

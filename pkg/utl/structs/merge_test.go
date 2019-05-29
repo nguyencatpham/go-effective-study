@@ -3,7 +3,7 @@ package structs_test
 import (
 	"testing"
 
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/structs"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/structs"
 	"github.com/stretchr/testify/assert"
 )
 

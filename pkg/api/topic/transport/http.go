@@ -5,8 +5,8 @@ import (
 	"strconv"
 
 	"github.com/labstack/echo"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/api/topic"
-	"gitlab.com/nguyencatpham/go-effective-study/pkg/utl/model"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // HTTP represents topic http service
