@@ -4,8 +4,10 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/graphql-go/graphql"
 	"github.com/labstack/echo"
 	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/helper"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
@@ -47,15 +49,10 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	// summary: Returns list of topics.
 	// description: Returns list of topics. Depending on the topic role requesting it, it may return all topics for SuperAdmin/Admin topics, all company/location topics for Company/Location admins, and an error for non-admin topics.
 	// parameters:
-	// - name: limit
+	// - name: query
 	//   in: query
-	//   description: number of results
-	//   type: int
-	//   required: false
-	// - name: page
-	//   in: query
-	//   description: page number
-	//   type: int
+	//   description:  graphql query.Including key(string). For example '{result(key:"a")}''
+	//   type: string
 	//   required: false
 	// responses:
 	//   "200":
@@ -78,7 +75,7 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	// - name: id
 	//   in: path
 	//   description: id of topic
-	//   type: int
+	//   type: number
 	//   required: true
 	// responses:
 	//   "200":
@@ -103,7 +100,7 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	// - name: id
 	//   in: path
 	//   description: id of topic
-	//   type: int
+	//   type: number
 	//   required: true
 	// - name: request
 	//   in: body
@@ -132,7 +129,7 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	// - name: id
 	//   in: path
 	//   description: id of topic
-	//   type: int
+	//   type: number
 	//   required: true
 	// responses:
 	//   "200":
@@ -179,13 +176,20 @@ func (h *HTTP) list(c echo.Context) error {
 		return err
 	}
 
-	result, err := h.svc.List(c, p.Transform())
+	schema := List(c, h.svc, p)
 
-	if err != nil {
-		return err
+	result := graphql.Do(graphql.Params{
+		Schema:        schema,
+		RequestString: c.QueryParam("query"),
+	})
+	if len(result.Errors) > 0 {
+		errors := ""
+		for _, b := range result.Errors {
+			errors += b.Message + "|"
+		}
+		return helper.HandleError(errors)
 	}
-
-	return c.JSON(http.StatusOK, listResponse{result, p.Page})
+	return c.JSON(http.StatusOK, result)
 }
 
 func (h *HTTP) view(c echo.Context) error {

@@ -13,8 +13,8 @@ func (u *Topic) Create(c echo.Context, req model.Topic) (*model.Topic, error) {
 }
 
 // List returns list of topics
-func (u *Topic) List(c echo.Context, p *model.Pagination) ([]model.Topic, error) {
-	q := &model.ListQuery{}
+func (u *Topic) List(c echo.Context, p *model.Pagination, query []string) ([]model.Topic, int, error) {
+	q := &model.FilterQuery{}
 	return u.udb.List(u.db, q, p)
 }
 

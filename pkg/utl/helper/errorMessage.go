@@ -3,11 +3,9 @@ package helper
 import (
 	// "fmt"
 
-	"log"
-
 	"github.com/labstack/echo"
-	"github.com/thoas/go-funk"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/config"
+	"github.com/thoas/go-funk"
 )
 
 var appConfig *config.Configuration
@@ -46,6 +44,5 @@ func GetError(status int, messageType string) error {
 	return err
 }
 func HandleError(message string) error {
-	log.Printf(message)
-	return GetError(400, message)
+	return echo.NewHTTPError(400, message)
 }

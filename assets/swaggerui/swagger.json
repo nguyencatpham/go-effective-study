@@ -13,9 +13,9 @@
     "description": "API Docs for Go Effective Study v1",
     "title": "Go Effective Study",
     "contact": {
-      "name": "Emir Ribic",
-      "url": "httpss://ribice.ba",
-      "email": "ribice@gmail.com"
+      "name": "Phạm Nguyên Cát",
+      "url": "httpss://github.com/nguyencatpham",
+      "email": "dtpham258@gmail.com"
     },
     "license": {
       "name": "MIT",
@@ -183,15 +183,9 @@
         "operationId": "listTopics",
         "parameters": [
           {
-            "type": "int",
-            "description": "number of results",
-            "name": "limit",
-            "in": "query"
-          },
-          {
-            "type": "int",
-            "description": "page number",
-            "name": "page",
+            "type": "string",
+            "description": "graphql query.Including key(string). For example '{result(key:\"a\")}''",
+            "name": "query",
             "in": "query"
           }
         ],
@@ -260,7 +254,7 @@
         "operationId": "getTopic",
         "parameters": [
           {
-            "type": "int",
+            "type": "number",
             "description": "id of topic",
             "name": "id",
             "in": "path",
@@ -297,7 +291,7 @@
         "operationId": "topicDelete",
         "parameters": [
           {
-            "type": "int",
+            "type": "number",
             "description": "id of topic",
             "name": "id",
             "in": "path",
@@ -331,7 +325,7 @@
         "operationId": "topicUpdate",
         "parameters": [
           {
-            "type": "int",
+            "type": "number",
             "description": "id of topic",
             "name": "id",
             "in": "path",
@@ -556,9 +550,9 @@
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "HTTP": {
-      "description": "HTTP represents password https transport service",
+      "description": "HTTP represents user https service",
       "type": "object",
-      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
     },
     "Role": {
       "description": "Role model",
@@ -767,6 +761,31 @@
       },
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/auth/transport"
     },
+    "list": {
+      "description": "Topic list request",
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Topic"
+          },
+          "x-go-name": "Data"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Page"
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "TotalItems"
+        }
+      },
+      "x-go-name": "listResponse",
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+    },
     "listResponse": {
       "type": "object",
       "properties": {
@@ -775,15 +794,15 @@
           "format": "int64",
           "x-go-name": "Page"
         },
-        "topics": {
+        "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Topic"
+            "$ref": "#/definitions/User"
           },
-          "x-go-name": "Topics"
+          "x-go-name": "Users"
         }
       },
-      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
     },
     "pwChange": {
       "description": "Password change request",

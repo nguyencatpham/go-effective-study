@@ -1,4 +1,4 @@
-// Copyright 2017 Emir Ribic. All rights reserved.
+// Copyright 2019 Nguyên Cát Phạm. All rights reserved.
 // Use of this source code is governed by an MIT-style
 // license that can be found in the LICENSE file.
 
@@ -10,7 +10,7 @@
 //     Schemes: http
 //     Version: 2.0.0
 //     License: MIT http://opensource.org/licenses/MIT
-//     Contact: Emir Ribic <ribice@gmail.com> https://ribice.ba
+//     Contact: Phạm Nguyên Cát <dtpham258@gmail.com> https://github.com/nguyencatpham
 //     Host: localhost:8080
 //
 //     Consumes:

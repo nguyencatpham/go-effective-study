@@ -41,7 +41,7 @@ func (ls *LogService) Create(c echo.Context, req model.Topic) (resp *model.Topic
 }
 
 // List logging
-func (ls *LogService) List(c echo.Context, req *model.Pagination) (resp []model.Topic, err error) {
+func (ls *LogService) List(c echo.Context, req *model.Pagination, query []string) (resp []model.Topic, totalItems int, err error) {
 	defer func(begin time.Time) {
 		ls.logger.Log(
 			c,
@@ -53,7 +53,7 @@ func (ls *LogService) List(c echo.Context, req *model.Pagination) (resp []model.
 			},
 		)
 	}(time.Now())
-	return ls.Service.List(c, req)
+	return ls.Service.List(c, req, query)
 }
 
 // View logging

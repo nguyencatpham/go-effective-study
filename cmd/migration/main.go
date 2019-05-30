@@ -21,6 +21,7 @@ func Init(cfg *config.Configuration) error {
 	}
 	updateSwagger(cfg)
 	isMigrate, err := createDatabase(cfg.DB.DBName, cfg.DB.PSNBase)
+	log.Println("open connection ", isMigrate)
 	if !isMigrate {
 		return helper.HandleError("No need migrate. Starting program...")
 	}
@@ -94,7 +95,6 @@ func seedData(db *pg.DB) {
 func updateSwagger(cfg *config.Configuration) {
 	//-- replace host swagger
 	if cfg.Server.Host != "" {
-		log.Println("update swagger host...")
 		swaggerJSON, err := helper.Readfile(cfg.Server.SwaggerJSON)
 		checkErr(err)
 
@@ -106,6 +106,7 @@ func updateSwagger(cfg *config.Configuration) {
 		swaggerJSON = strings.Replace(swaggerJSON, "http", "https", -1)
 		err = helper.WriteFile(cfg.Server.SwaggerJSON, swaggerJSON)
 		checkErr(err)
+		log.Println("update swagger host...DONE")
 	}
 }
 func checkErr(err error) {

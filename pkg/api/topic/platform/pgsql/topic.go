@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/go-pg/pg"
+	"github.com/nguyencatpham/go-effective-study/pkg/utl/helper"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 
 	"github.com/go-pg/pg/orm"
@@ -25,10 +26,12 @@ var (
 )
 
 // Create creates a new topic on database
-func (u *Topic) Create(db orm.DB, topicModel model.Topic) (*model.Topic, error) {
+func (self *Topic) Create(db orm.DB, topicModel model.Topic) (*model.Topic, error) {
 	var topic = new(model.Topic)
-	err := db.Model(topic).Where("lower(name) = ?",
-		strings.ToLower(topicModel.Name)).Select()
+	err := db.Model(topic).
+		Where("lower(name) = ?", strings.
+			ToLower(topicModel.Name)).
+		Select()
 
 	if err != nil && err != pg.ErrNoRows {
 		return nil, ErrAlreadyExists
@@ -42,12 +45,15 @@ func (u *Topic) Create(db orm.DB, topicModel model.Topic) (*model.Topic, error) 
 }
 
 // View returns single topic by ID
-func (u *Topic) View(db orm.DB, id int) (*model.Topic, error) {
+func (self *Topic) View(db orm.DB, id int) (*model.Topic, error) {
 	var topic = new(model.Topic)
 	sql := `SELECT "topic".*
 	FROM "topics" AS "topic"
 	WHERE ("topic"."id" = ?)`
 	_, err := db.QueryOne(topic, sql, id)
+	if err == pg.ErrNoRows {
+		return nil, nil
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -56,12 +62,12 @@ func (u *Topic) View(db orm.DB, id int) (*model.Topic, error) {
 }
 
 // Update updates topic's contact info
-func (u *Topic) Update(db orm.DB, topic *model.Topic) error {
+func (self *Topic) Update(db orm.DB, topic *model.Topic) error {
 	return db.Update(topic)
 }
 
 // List returns list of all topics retrievable for the current topic, depending on role
-func (u *Topic) List(db orm.DB, qp *model.ListQuery, p *model.Pagination) ([]model.Topic, error) {
+func (self *Topic) List(db orm.DB, qp *model.FilterQuery, p *model.Pagination) ([]model.Topic, int, error) {
 	var topics []model.Topic
 	q := db.Model(&topics).
 		Column("topic.*").
@@ -70,15 +76,20 @@ func (u *Topic) List(db orm.DB, qp *model.ListQuery, p *model.Pagination) ([]mod
 		Offset(p.Offset).
 		Order("topic.id desc")
 	if qp != nil && qp.Query != "" {
-		q.Where(qp.Query, qp.ID)
+		q.Where(qp.Query, qp.Params...)
 	}
-	if err := q.Select(); err != nil {
-		return nil, err
+	totalItems, err := q.Count()
+	if err != nil {
+		return nil, 0, helper.HandleError("web:topic:list.problem:query.error")
 	}
-	return topics, nil
+	if err := q.Limit(p.Limit).Offset(p.Offset).Order("topic.created_at desc").Select(); err != nil {
+		return nil, 0, helper.HandleError("web:topic:list.problem:query.error")
+	}
+
+	return topics, totalItems, nil
 }
 
 // Delete sets deleted_at for a topic
-func (u *Topic) Delete(db orm.DB, topic *model.Topic) error {
+func (self *Topic) Delete(db orm.DB, topic *model.Topic) error {
 	return db.Delete(topic)
 }

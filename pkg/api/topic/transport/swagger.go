@@ -30,10 +30,6 @@ type createReq struct {
 	Description string          `json:"description"`
 	Type        model.TopicType `json:"type"`
 }
-type listResponse struct {
-	Topics []model.Topic `json:"topics"`
-	Page   int           `json:"page"`
-}
 
 // Topic update request
 // swagger:model topicUpdate
@@ -44,4 +40,12 @@ type updateReq struct {
 	Mobile    *string `json:"mobile,omitempty"`
 	Phone     *string `json:"phone,omitempty"`
 	Address   *string `json:"address,omitempty"`
+}
+
+// Topic list request
+// swagger:model list
+type listResponse struct {
+	Data       []model.Topic `json:"data"`
+	Page       int           `json:"page"`
+	TotalItems int           `json:"totalItems"`
 }

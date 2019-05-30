@@ -20,6 +20,12 @@ type ListQuery struct {
 	ID    int
 }
 
+// FilterQuery holds company/location data used for list db queries
+type FilterQuery struct {
+	Query  string
+	Params []interface{}
+}
+
 // BeforeInsert hooks into insert operations, setting createdAt and updatedAt to current time
 func (b *Base) BeforeInsert(_ orm.DB) error {
 	now := time.Now()
