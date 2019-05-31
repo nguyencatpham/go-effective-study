@@ -11,7 +11,6 @@ import (
 	"github.com/graphql-go/graphql"
 	"github.com/labstack/echo"
 	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
-	"github.com/nguyencatpham/go-effective-study/pkg/utl/helper"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
@@ -52,9 +51,9 @@ func List(c echo.Context, svc topic.Service, page *model.PaginationReq) graphql.
 			tempStr := fmt.Sprintf(`topic.name = '%s'`, name.(string))
 			queryArr = append(queryArr, tempStr)
 		}
-		if queryArr == nil || len(queryArr) == 0 {
-			return nil, helper.HandleError("iot:generic:invalidParams")
-		}
+		// if queryArr == nil || len(queryArr) == 0 {
+		// 	return nil, helper.HandleError("web:topic:list:invalidParams")
+		// }
 		result, totalItems, err := svc.List(c, page.Transform(), queryArr)
 		resultOutput := listResponse{result, page.Page, totalItems}
 
@@ -78,11 +77,11 @@ func List(c echo.Context, svc topic.Service, page *model.PaginationReq) graphql.
 		graphql.ObjectConfig{
 			Name: "Query",
 			Fields: graphql.Fields{
-				"data": &graphql.Field{
+				"result": &graphql.Field{
 					Type: objectType,
 					Args: graphql.FieldConfigArgument{
 						"key": &graphql.ArgumentConfig{
-							Type: objectType,
+							Type: graphql.String,
 						},
 					},
 					Resolve: resolver,

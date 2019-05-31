@@ -124,10 +124,3 @@ configmap:
     writetimeout: 5 # Response write timeout in minutes
     swagger_ui_path: ./assets/swaggerui
     swagger_json: "./assets/swaggerui/swagger.json"
-
-  jwt:
-    signingalgorithm: HS256
-    secret: "Onsky.smarthome"
-
-  jwt_internal:
-    token: "hfiuewhr37984573jf0y3fnhiwyr8329423fjefh3yr83fkuf0934ffkopif09328"
