@@ -2,6 +2,8 @@
 package topic
 
 import (
+	"log"
+
 	"github.com/labstack/echo"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/structs"
@@ -9,43 +11,41 @@ import (
 
 // Create creates a new topic account
 func (u *Topic) Create(c echo.Context, req model.Topic) (*model.Topic, error) {
+	log.Println("aaaaaaaaaa")
 	return u.udb.Create(u.db, req)
 }
 
 // List returns list of topics
 func (u *Topic) List(c echo.Context, p *model.Pagination, query []string) ([]model.Topic, int, error) {
+	// TODO: []string to filter query
 	q := &model.FilterQuery{}
+	log.Println("Params", query)
 	return u.udb.List(u.db, q, p)
 }
 
 // View returns single topic
-func (u *Topic) View(c echo.Context, id int) (*model.Topic, error) {
-	return u.udb.View(u.db, id)
+func (u *Topic) View(c echo.Context, query []string) (*model.Topic, error) {
+	q := &model.FilterQuery{
+		// Query:  "topic.id=?",
+		// Params: []interface{}{query},
+	}
+	return u.udb.View(u.db, q)
 }
 
 // Delete deletes a topic
 func (u *Topic) Delete(c echo.Context, id int) error {
-	topic, err := u.udb.View(u.db, id)
+	q := &model.FilterQuery{Query: "topic.id=?", Params: []interface{}{id}}
+	topic, err := u.udb.View(u.db, q)
 	if err != nil {
 		return err
 	}
 	return u.udb.Delete(u.db, topic)
 }
 
-// Update contains topic's information used for updating
-type Update struct {
-	ID        int
-	FirstName *string
-	LastName  *string
-	Mobile    *string
-	Phone     *string
-	Address   *string
-}
-
 // Update updates topic's contact information
-func (u *Topic) Update(c echo.Context, req *Update) (*model.Topic, error) {
-
-	topic, err := u.udb.View(u.db, req.ID)
+func (u *Topic) Update(c echo.Context, req model.UpdateReq) (*model.Topic, error) {
+	q := &model.FilterQuery{Query: "topic.id=?", Params: []interface{}{req.ID}}
+	topic, err := u.udb.View(u.db, q)
 	if err != nil {
 		return nil, err
 	}

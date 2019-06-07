@@ -1,6 +1,6 @@
 package model
 
-// Topic detail represents topic for english lesson model
+// TopicDetail represents topic for english lesson model
 type TopicDetail struct {
 	Base
 	Name        string `json:"name"`

@@ -184,7 +184,7 @@
         "parameters": [
           {
             "type": "string",
-            "description": "graphql query.Including key(string). For example '{result(key:\"a\")}''",
+            "description": "graphql query.To get list :{list(key:\"\"){page,totalItems, data{name,description,type}}}. To get 1 item {result(key:\"\"){name,description,type}}",
             "name": "query",
             "in": "query"
           }
@@ -216,8 +216,14 @@
         "operationId": "topicCreate",
         "parameters": [
           {
+            "type": "string",
+            "description": "graphql query.To get list :{create(name:\"\",description:\"\",type:\"\"){name,description,type}}.",
+            "name": "query",
+            "in": "query"
+          },
+          {
             "description": "Request body",
-            "name": "request",
+            "name": "mutation",
             "in": "body",
             "required": true,
             "schema": {
@@ -244,26 +250,25 @@
         }
       }
     },
-    "/v1/topics/{id}": {
+    "/v1/topics/test": {
       "get": {
-        "description": "Returns a single topic by its ID.",
+        "description": "Deletes a topic with requested ID.",
         "tags": [
           "topics"
         ],
-        "summary": "Returns a single topic.",
-        "operationId": "getTopic",
+        "summary": "Deletes a topic",
+        "operationId": "topicDelete",
         "parameters": [
           {
-            "type": "number",
-            "description": "id of topic",
-            "name": "id",
-            "in": "path",
-            "required": true
+            "type": "string",
+            "description": "graphql query.To get list :{list(key:\"\"){page,totalItems, data{name,description,type}}}. To get 1 item {result(key:\"\"){name,description,type}}",
+            "name": "query",
+            "in": "query"
           }
         ],
         "responses": {
           "200": {
-            "$ref": "#/responses/topicResp"
+            "$ref": "#/responses/ok"
           },
           "400": {
             "$ref": "#/responses/err"
@@ -274,14 +279,13 @@
           "403": {
             "$ref": "#/responses/err"
           },
-          "404": {
-            "$ref": "#/responses/err"
-          },
           "500": {
             "$ref": "#/responses/err"
           }
         }
-      },
+      }
+    },
+    "/v1/topics/{id}": {
       "delete": {
         "description": "Deletes a topic with requested ID.",
         "tags": [
@@ -324,13 +328,6 @@
         "summary": "Updates topic's contact information",
         "operationId": "topicUpdate",
         "parameters": [
-          {
-            "type": "number",
-            "description": "id of topic",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
           {
             "description": "Request body",
             "name": "request",
@@ -617,7 +614,7 @@
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "TopicDetail": {
-      "description": "Topic detail represents topic for english lesson model",
+      "description": "TopicDetail represents topic for english lesson model",
       "type": "object",
       "properties": {
         "created_at": {
@@ -920,28 +917,21 @@
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
     },
     "topicUpdate": {
-      "description": "Topic update request",
+      "description": "UpdateReq update request",
       "type": "object",
       "properties": {
-        "address": {
+        "description": {
           "type": "string",
-          "x-go-name": "Address"
+          "x-go-name": "Description"
         },
-        "first_name": {
+        "name": {
           "type": "string",
-          "x-go-name": "FirstName"
+          "x-go-name": "Name"
         },
-        "last_name": {
-          "type": "string",
-          "x-go-name": "LastName"
-        },
-        "mobile": {
-          "type": "string",
-          "x-go-name": "Mobile"
-        },
-        "phone": {
-          "type": "string",
-          "x-go-name": "Phone"
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Type"
         }
       },
       "x-go-name": "updateReq",

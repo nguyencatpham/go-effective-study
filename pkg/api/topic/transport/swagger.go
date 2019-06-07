@@ -31,15 +31,13 @@ type createReq struct {
 	Type        model.TopicType `json:"type"`
 }
 
-// Topic update request
+// UpdateReq update request
 // swagger:model topicUpdate
 type updateReq struct {
-	ID        int     `json:"-"`
-	FirstName *string `json:"first_name,omitempty" validate:"omitempty,min=2"`
-	LastName  *string `json:"last_name,omitempty" validate:"omitempty,min=2"`
-	Mobile    *string `json:"mobile,omitempty"`
-	Phone     *string `json:"phone,omitempty"`
-	Address   *string `json:"address,omitempty"`
+	ID          int    `json:"-"`
+	Name        string `json:"name" validate:"min=2"`
+	Description string `json:"description,omitempty""`
+	Type        int    `json:"type,omitempty"`
 }
 
 // Topic list request

@@ -1,6 +1,8 @@
 package pgsql
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 	"strings"
 
@@ -27,6 +29,7 @@ var (
 
 // Create creates a new topic on database
 func (self *Topic) Create(db orm.DB, topicModel model.Topic) (*model.Topic, error) {
+	fmt.Printf("xxxxxxxxxxxxxxxxxxxxxxx")
 	var topic = new(model.Topic)
 	err := db.Model(topic).
 		Where("lower(name) = ?", strings.
@@ -45,19 +48,23 @@ func (self *Topic) Create(db orm.DB, topicModel model.Topic) (*model.Topic, erro
 }
 
 // View returns single topic by ID
-func (self *Topic) View(db orm.DB, id int) (*model.Topic, error) {
+func (self *Topic) View(db orm.DB, qp *model.FilterQuery) (*model.Topic, error) {
+	fmt.Printf("pgsql view")
 	var topic = new(model.Topic)
-	sql := `SELECT "topic".*
-	FROM "topics" AS "topic"
-	WHERE ("topic"."id" = ?)`
-	_, err := db.QueryOne(topic, sql, id)
+	q := db.Model(topic).
+		Column("topic.*").
+		Where("deleted_at is null")
+	if qp != nil && qp.Query != "" {
+		q.Where(qp.Query, qp.Params...)
+	}
+	err := q.Order("topic.id desc").Limit(1).Select()
 	if err == pg.ErrNoRows {
 		return nil, nil
 	}
 	if err != nil {
-		return nil, err
+		log.Println(err)
+		return nil, helper.HandleError("web:topic:view:query.error")
 	}
-
 	return topic, nil
 }
 
@@ -68,6 +75,7 @@ func (self *Topic) Update(db orm.DB, topic *model.Topic) error {
 
 // List returns list of all topics retrievable for the current topic, depending on role
 func (self *Topic) List(db orm.DB, qp *model.FilterQuery, p *model.Pagination) ([]model.Topic, int, error) {
+	fmt.Printf("pgsql list")
 	var topics []model.Topic
 	q := db.Model(&topics).
 		Column("topic.*").
@@ -80,10 +88,11 @@ func (self *Topic) List(db orm.DB, qp *model.FilterQuery, p *model.Pagination) (
 	}
 	totalItems, err := q.Count()
 	if err != nil {
-		return nil, 0, helper.HandleError("web:topic:list.problem:query.error")
+		// return nil, 0, helper.HandleError("web:topic:list:query.error")
+		return nil, 0, err
 	}
 	if err := q.Limit(p.Limit).Offset(p.Offset).Order("topic.created_at desc").Select(); err != nil {
-		return nil, 0, helper.HandleError("web:topic:list.problem:query.error")
+		return nil, 0, err
 	}
 
 	return topics, totalItems, nil

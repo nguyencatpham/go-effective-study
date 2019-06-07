@@ -12,9 +12,9 @@ import (
 type Service interface {
 	Create(echo.Context, model.Topic) (*model.Topic, error)
 	List(echo.Context, *model.Pagination, []string) ([]model.Topic, int, error)
-	View(echo.Context, int) (*model.Topic, error)
+	View(echo.Context, []string) (*model.Topic, error)
 	Delete(echo.Context, int) error
-	Update(echo.Context, *Update) (*model.Topic, error)
+	Update(echo.Context, model.UpdateReq) (*model.Topic, error)
 }
 
 // New creates new topic application service
@@ -43,7 +43,7 @@ type Securer interface {
 // UDB represents topic repository interface
 type UDB interface {
 	Create(orm.DB, model.Topic) (*model.Topic, error)
-	View(orm.DB, int) (*model.Topic, error)
+	View(orm.DB, *model.FilterQuery) (*model.Topic, error)
 	List(orm.DB, *model.FilterQuery, *model.Pagination) ([]model.Topic, int, error)
 	Update(orm.DB, *model.Topic) error
 	Delete(orm.DB, *model.Topic) error

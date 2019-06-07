@@ -1,9 +1,6 @@
 package topic
 
 import (
-	"time"
-
-	"github.com/labstack/echo"
 	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
@@ -22,83 +19,83 @@ type LogService struct {
 	logger model.Logger
 }
 
-const name = "topic"
+// const name = "topic"
 
-// Create logging
-func (ls *LogService) Create(c echo.Context, req model.Topic) (resp *model.Topic, err error) {
-	defer func(begin time.Time) {
-		ls.logger.Log(
-			c,
-			name, "Create topic request", err,
-			map[string]interface{}{
-				"req":  req,
-				"resp": resp,
-				"took": time.Since(begin),
-			},
-		)
-	}(time.Now())
-	return ls.Service.Create(c, req)
-}
+// // View logging
+// func (ls *LogService) View(c echo.Context, req []string) (resp *model.Topic, err error) {
+// 	defer func(begin time.Time) {
+// 		ls.logger.Log(
+// 			c,
+// 			name, "View topic request", err,
+// 			map[string]interface{}{
+// 				"req":  req,
+// 				"resp": resp,
+// 				"took": time.Since(begin),
+// 			},
+// 		)
+// 	}(time.Now())
+// 	return ls.Service.View(c, req)
+// }
 
-// List logging
-func (ls *LogService) List(c echo.Context, req *model.Pagination, query []string) (resp []model.Topic, totalItems int, err error) {
-	defer func(begin time.Time) {
-		ls.logger.Log(
-			c,
-			name, "List topic request", err,
-			map[string]interface{}{
-				"req":  req,
-				"resp": resp,
-				"took": time.Since(begin),
-			},
-		)
-	}(time.Now())
-	return ls.Service.List(c, req, query)
-}
+// // List logging
+// func (ls *LogService) List(c echo.Context, req *model.Pagination, query []string) (resp []model.Topic, totalItems int, err error) {
+// 	defer func(begin time.Time) {
+// 		ls.logger.Log(
+// 			c,
+// 			name, "List topic request", err,
+// 			map[string]interface{}{
+// 				"req":  req,
+// 				"resp": resp,
+// 				"took": time.Since(begin),
+// 			},
+// 		)
+// 	}(time.Now())
+// 	return ls.Service.List(c, req, query)
+// }
 
-// View logging
-func (ls *LogService) View(c echo.Context, req int) (resp *model.Topic, err error) {
-	defer func(begin time.Time) {
-		ls.logger.Log(
-			c,
-			name, "View topic request", err,
-			map[string]interface{}{
-				"req":  req,
-				"resp": resp,
-				"took": time.Since(begin),
-			},
-		)
-	}(time.Now())
-	return ls.Service.View(c, req)
-}
+// // Delete logging
+// func (ls *LogService) Delete(c echo.Context, req int) (err error) {
+// 	defer func(begin time.Time) {
+// 		ls.logger.Log(
+// 			c,
+// 			name, "Delete topic request", err,
+// 			map[string]interface{}{
+// 				"req":  req,
+// 				"took": time.Since(begin),
+// 			},
+// 		)
+// 	}(time.Now())
+// 	return ls.Service.Delete(c, req)
+// }
 
-// Delete logging
-func (ls *LogService) Delete(c echo.Context, req int) (err error) {
-	defer func(begin time.Time) {
-		ls.logger.Log(
-			c,
-			name, "Delete topic request", err,
-			map[string]interface{}{
-				"req":  req,
-				"took": time.Since(begin),
-			},
-		)
-	}(time.Now())
-	return ls.Service.Delete(c, req)
-}
+// // Update logging
+// func (ls *LogService) Update(c echo.Context, req model.UpdateReq) (resp *model.Topic, err error) {
+// 	defer func(begin time.Time) {
+// 		ls.logger.Log(
+// 			c,
+// 			name, "Update topic request", err,
+// 			map[string]interface{}{
+// 				"req":  req,
+// 				"resp": resp,
+// 				"took": time.Since(begin),
+// 			},
+// 		)
+// 	}(time.Now())
+// 	return ls.Service.Update(c, req)
+// }
 
-// Update logging
-func (ls *LogService) Update(c echo.Context, req *topic.Update) (resp *model.Topic, err error) {
-	defer func(begin time.Time) {
-		ls.logger.Log(
-			c,
-			name, "Update topic request", err,
-			map[string]interface{}{
-				"req":  req,
-				"resp": resp,
-				"took": time.Since(begin),
-			},
-		)
-	}(time.Now())
-	return ls.Service.Update(c, req)
-}
+// // Create logging
+// func (ls *LogService) Create(c echo.Context, req model.Topic) (resp *model.Topic, err error) {
+// 	defer func(begin time.Time) {
+// 		ls.logger.Log(
+// 			c,
+// 			name, "Create topic request", err,
+// 			map[string]interface{}{
+// 				"req":  req,
+// 				"resp": resp,
+// 				"took": time.Since(begin),
+// 			},
+// 		)
+// 	}(time.Now())
+// 	return ls.Service.Create(c, req)
+// }
