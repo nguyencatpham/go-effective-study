@@ -10,17 +10,17 @@ import (
 	merp "github.com/eneoti/merge-struct"
 	"github.com/graphql-go/graphql"
 	"github.com/labstack/echo"
-	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/product"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
 // object type
 var listType = dynamicGraphql.DynamicGraphql("ListResponse", reflect.TypeOf(listResponse{}))
-var itemType = dynamicGraphql.DynamicGraphql("ItemResponse", reflect.TypeOf(model.Topic{}))
+var itemType = dynamicGraphql.DynamicGraphql("ItemResponse", reflect.TypeOf(model.Product{}))
 var updateType = dynamicGraphql.DynamicGraphql("UpdateResponse", reflect.TypeOf(updateReq{}))
 
 // Query query data by graphql
-func Query(c echo.Context, svc topic.Service, page *model.PaginationReq) graphql.Schema {
+func Query(c echo.Context, svc product.Service, page *model.PaginationReq) graphql.Schema {
 	var viewResolver = func(p graphql.ResolveParams) (interface{}, error) {
 		key := p.Args["key"]
 		result, err := svc.View(c, helper.GetParams(key))
@@ -72,14 +72,13 @@ func Query(c echo.Context, svc topic.Service, page *model.PaginationReq) graphql
 }
 
 // Mutation data
-func Mutation(c echo.Context, svc topic.Service, req *model.UpdateReq) graphql.Schema {
+func Mutation(c echo.Context, svc product.Service, req *model.UpdateReq) graphql.Schema {
 	log.Println("............Mutation.......", req)
 
 	var createResolver = func(p graphql.ResolveParams) (interface{}, error) {
-		item := model.Topic{
+		item := model.Product{
 			Name:        req.Name,
 			Description: req.Description,
-			Type:        model.TopicType(req.Type),
 		}
 		result, err := svc.Create(c, item)
 		log.Println("...................", result)

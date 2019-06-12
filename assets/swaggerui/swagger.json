@@ -23,7 +23,7 @@
     },
     "version": "2.0.0"
   },
-  "host": "8080-f76958ae-2934-48df-ab1c-3a8d355f5bf8.ws-ap0.gitpod.io",
+  "host": "8080-c63bf898-6880-4f61-a146-5ddc2503544c.ws-ap0.gitpod.io",
   "paths": {
     "/login": {
       "post": {
@@ -173,6 +173,190 @@
         }
       }
     },
+    "/v1/products": {
+      "get": {
+        "description": "Returns list of products. Depending on the product role requesting it, it may return all products for SuperAdmin/Admin products, all company/location products for Company/Location admins, and an error for non-admin products.",
+        "tags": [
+          "products"
+        ],
+        "summary": "Returns list of products.",
+        "operationId": "listProducts",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "graphql query.To get list :{list(key:\"\"){page,totalItems, data{name,description,type}}}. To get 1 item {result(key:\"\"){name,description,type}}",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/productListResp"
+          },
+          "400": {
+            "$ref": "#/responses/errMsg"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      },
+      "post": {
+        "description": "Returns list of products. Depending on the product role requesting it, it may return all products for SuperAdmin/Admin products, all company/location products for Company/Location admins, and an error for non-admin products.",
+        "tags": [
+          "products"
+        ],
+        "summary": "Returns product created.",
+        "operationId": "productCreate",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "graphql query.To get list :{create(name:\"\",description:\"\",type:\"\"){name,description,type}}.",
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "description": "Request body",
+            "name": "mutation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/productCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/productListResp"
+          },
+          "400": {
+            "$ref": "#/responses/errMsg"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      }
+    },
+    "/v1/products/test": {
+      "get": {
+        "description": "Deletes a product with requested ID.",
+        "tags": [
+          "products"
+        ],
+        "summary": "Deletes a product",
+        "operationId": "productDelete",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "graphql query.To get list :{list(key:\"\"){page,totalItems, data{name,description,type}}}. To get 1 item {result(key:\"\"){name,description,type}}",
+            "name": "query",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ok"
+          },
+          "400": {
+            "$ref": "#/responses/err"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      }
+    },
+    "/v1/products/{id}": {
+      "delete": {
+        "description": "Deletes a product with requested ID.",
+        "tags": [
+          "products"
+        ],
+        "summary": "Deletes a product",
+        "operationId": "productDelete",
+        "parameters": [
+          {
+            "type": "number",
+            "description": "id of product",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/ok"
+          },
+          "400": {
+            "$ref": "#/responses/err"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      },
+      "patch": {
+        "description": "Updates product's contact information -\u003e first name, last name, mobile, phone, address.",
+        "tags": [
+          "products"
+        ],
+        "summary": "Updates product's contact information",
+        "operationId": "productUpdate",
+        "parameters": [
+          {
+            "description": "Request body",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/productUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/productResp"
+          },
+          "400": {
+            "$ref": "#/responses/errMsg"
+          },
+          "401": {
+            "$ref": "#/responses/err"
+          },
+          "403": {
+            "$ref": "#/responses/err"
+          },
+          "500": {
+            "$ref": "#/responses/err"
+          }
+        }
+      }
+    },
     "/v1/topics": {
       "get": {
         "description": "Returns list of topics. Depending on the topic role requesting it, it may return all topics for SuperAdmin/Admin topics, all company/location topics for Company/Location admins, and an error for non-admin topics.",
@@ -237,41 +421,6 @@
           },
           "400": {
             "$ref": "#/responses/errMsg"
-          },
-          "401": {
-            "$ref": "#/responses/err"
-          },
-          "403": {
-            "$ref": "#/responses/err"
-          },
-          "500": {
-            "$ref": "#/responses/err"
-          }
-        }
-      }
-    },
-    "/v1/topics/test": {
-      "get": {
-        "description": "Deletes a topic with requested ID.",
-        "tags": [
-          "topics"
-        ],
-        "summary": "Deletes a topic",
-        "operationId": "topicDelete",
-        "parameters": [
-          {
-            "type": "string",
-            "description": "graphql query.To get list :{list(key:\"\"){page,totalItems, data{name,description,type}}}. To get 1 item {result(key:\"\"){name,description,type}}",
-            "name": "query",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "$ref": "#/responses/ok"
-          },
-          "400": {
-            "$ref": "#/responses/err"
           },
           "401": {
             "$ref": "#/responses/err"
@@ -546,10 +695,486 @@
       "format": "int64",
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
+    "Catalog": {
+      "description": "Catalog represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedAt"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "language": {
+          "$ref": "#/definitions/Language"
+        },
+        "language_id": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "LanguageID"
+        },
+        "localize_id": {
+          "type": "string",
+          "x-go-name": "LocalizeID"
+        },
+        "menu_order": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "MenuOrder"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          },
+          "x-go-name": "Products"
+        },
+        "slug": {
+          "type": "string",
+          "x-go-name": "Slug"
+        },
+        "tags": {
+          "type": "string",
+          "x-go-name": "Tags"
+        },
+        "title": {
+          "type": "string",
+          "x-go-name": "Title"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "Category": {
+      "description": "Category represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedAt"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "language": {
+          "$ref": "#/definitions/Language"
+        },
+        "language_id": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "LanguageID"
+        },
+        "localize_id": {
+          "type": "string",
+          "x-go-name": "LocalizeID"
+        },
+        "menu_order": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "MenuOrder"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post"
+          },
+          "x-go-name": "Posts"
+        },
+        "slug": {
+          "type": "string",
+          "x-go-name": "Slug"
+        },
+        "tags": {
+          "type": "string",
+          "x-go-name": "Tags"
+        },
+        "title": {
+          "type": "string",
+          "x-go-name": "Title"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
     "HTTP": {
       "description": "HTTP represents user https service",
       "type": "object",
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
+    },
+    "Language": {
+      "description": "Language represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "culture": {
+          "type": "string",
+          "x-go-name": "Culture"
+        },
+        "flag_image_url": {
+          "type": "string",
+          "x-go-name": "FlagImageURL"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "is_enable": {
+          "type": "boolean",
+          "x-go-name": "IsEnable"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "post": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Post"
+          },
+          "x-go-name": "Posts"
+        },
+        "rl": {
+          "type": "boolean",
+          "x-go-name": "Rtl"
+        },
+        "unique_seo_code": {
+          "type": "string",
+          "x-go-name": "UniqueSeoCode"
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "Post": {
+      "description": "Post represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "allow_comment": {
+          "type": "boolean",
+          "x-go-name": "AllowComment"
+        },
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CategoryID"
+        },
+        "comment_count": {
+          "type": "integer",
+          "format": "int16",
+          "x-go-name": "CommentCount"
+        },
+        "content": {
+          "type": "string",
+          "x-go-name": "Content"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedAt"
+        },
+        "guid": {
+          "type": "string",
+          "x-go-name": "GUID"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "language": {
+          "$ref": "#/definitions/Language"
+        },
+        "language_id": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "LanguageID"
+        },
+        "localize_post_id": {
+          "type": "string",
+          "x-go-name": "LocalizePostID"
+        },
+        "menu_order": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "MenuOrder"
+        },
+        "mine_type": {
+          "type": "string",
+          "x-go-name": "MineType"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "parent_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ParentID"
+        },
+        "password": {
+          "type": "string",
+          "x-go-name": "Password"
+        },
+        "post_metas": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostMeta"
+          },
+          "x-go-name": "PostMetas"
+        },
+        "slug": {
+          "type": "string",
+          "x-go-name": "Slug"
+        },
+        "status": {
+          "$ref": "#/definitions/PostStatus"
+        },
+        "tags": {
+          "type": "string",
+          "x-go-name": "Tags"
+        },
+        "title": {
+          "type": "string",
+          "x-go-name": "Title"
+        },
+        "type": {
+          "$ref": "#/definitions/PostType"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Author"
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "PostMeta": {
+      "description": "PostMeta represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedAt"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "key": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Key"
+        },
+        "post": {
+          "$ref": "#/definitions/Post"
+        },
+        "post_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "PostID"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        },
+        "value": {
+          "type": "integer",
+          "format": "int16",
+          "x-go-name": "Value"
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "PostStatus": {
+      "description": "PostStatus represents type of topic",
+      "type": "integer",
+      "format": "int64",
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "PostType": {
+      "description": "PostType represents type of topic",
+      "type": "integer",
+      "format": "int64",
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "Product": {
+      "description": "Product represents topic for english lesson model",
+      "type": "object",
+      "properties": {
+        "alternateName": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "AlternateName"
+        },
+        "catalog": {
+          "$ref": "#/definitions/Catalog"
+        },
+        "catalog_id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "CatalogID"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "CreatedAt"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "DeletedAt"
+        },
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ID"
+        },
+        "imageUrl": {
+          "type": "string",
+          "x-go-name": "ImageURL"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "note": {
+          "type": "boolean",
+          "x-go-name": "Note"
+        },
+        "numOfArticles": {
+          "type": "string",
+          "x-go-name": "NumOfArticles"
+        },
+        "numOfImages": {
+          "type": "string",
+          "x-go-name": "NumOfImages"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Price"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Quantity"
+        },
+        "regularPrice": {
+          "type": "string",
+          "x-go-name": "RegularPrice"
+        },
+        "saleOff": {
+          "type": "integer",
+          "format": "int16",
+          "x-go-name": "SaleOff"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int8",
+          "x-go-name": "Size"
+        },
+        "sku": {
+          "type": "string",
+          "x-go-name": "Sku"
+        },
+        "slug": {
+          "type": "string",
+          "x-go-name": "Slug"
+        },
+        "status": {
+          "$ref": "#/definitions/ProductStatus"
+        },
+        "tags": {
+          "type": "string",
+          "x-go-name": "Tags"
+        },
+        "thumbnailSrc": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "ThumbnailSrc"
+        },
+        "unit": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Unit"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "x-go-name": "UpdatedAt"
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
+    },
+    "ProductStatus": {
+      "description": "ProductStatus represents type of topic",
+      "type": "string",
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/utl/model"
     },
     "Role": {
       "description": "Role model",
@@ -759,13 +1384,13 @@
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/auth/transport"
     },
     "list": {
-      "description": "Topic list request",
+      "description": "Product list request",
       "type": "object",
       "properties": {
         "data": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Topic"
+            "$ref": "#/definitions/Product"
           },
           "x-go-name": "Data"
         },
@@ -781,7 +1406,7 @@
         }
       },
       "x-go-name": "listResponse",
-      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/product/transport"
     },
     "listResponse": {
       "type": "object",
@@ -800,6 +1425,43 @@
         }
       },
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/user/transport"
+    },
+    "productCreate": {
+      "description": "Product create request",
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        }
+      },
+      "x-go-name": "createReq",
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/product/transport"
+    },
+    "productUpdate": {
+      "description": "UpdateReq update request",
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "x-go-name": "Description"
+        },
+        "name": {
+          "type": "string",
+          "x-go-name": "Name"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "x-go-name": "Type"
+        }
+      },
+      "x-go-name": "updateReq",
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/product/transport"
     },
     "pwChange": {
       "description": "Password change request",
@@ -820,6 +1482,150 @@
       },
       "x-go-name": "changeReq",
       "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
+    },
+    "swaggProductListResponse": {
+      "description": "Products model response",
+      "type": "object",
+      "properties": {
+        "Body": {
+          "description": "in:body",
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "Page"
+            },
+            "products": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              },
+              "x-go-name": "Products"
+            }
+          }
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/product/transport"
+    },
+    "swaggProductResponse": {
+      "description": "Product model response",
+      "type": "object",
+      "properties": {
+        "Body": {
+          "description": "in:body",
+          "type": "object",
+          "properties": {
+            "alternateName": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "AlternateName"
+            },
+            "catalog": {
+              "$ref": "#/definitions/Catalog"
+            },
+            "catalog_id": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "CatalogID"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "x-go-name": "CreatedAt"
+            },
+            "deleted_at": {
+              "type": "string",
+              "format": "date-time",
+              "x-go-name": "DeletedAt"
+            },
+            "description": {
+              "type": "string",
+              "x-go-name": "Description"
+            },
+            "id": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "ID"
+            },
+            "imageUrl": {
+              "type": "string",
+              "x-go-name": "ImageURL"
+            },
+            "name": {
+              "type": "string",
+              "x-go-name": "Name"
+            },
+            "note": {
+              "type": "boolean",
+              "x-go-name": "Note"
+            },
+            "numOfArticles": {
+              "type": "string",
+              "x-go-name": "NumOfArticles"
+            },
+            "numOfImages": {
+              "type": "string",
+              "x-go-name": "NumOfImages"
+            },
+            "price": {
+              "type": "integer",
+              "format": "int8",
+              "x-go-name": "Price"
+            },
+            "quantity": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "Quantity"
+            },
+            "regularPrice": {
+              "type": "string",
+              "x-go-name": "RegularPrice"
+            },
+            "saleOff": {
+              "type": "integer",
+              "format": "int16",
+              "x-go-name": "SaleOff"
+            },
+            "size": {
+              "type": "integer",
+              "format": "int8",
+              "x-go-name": "Size"
+            },
+            "sku": {
+              "type": "string",
+              "x-go-name": "Sku"
+            },
+            "slug": {
+              "type": "string",
+              "x-go-name": "Slug"
+            },
+            "status": {
+              "$ref": "#/definitions/ProductStatus"
+            },
+            "tags": {
+              "type": "string",
+              "x-go-name": "Tags"
+            },
+            "thumbnailSrc": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "ThumbnailSrc"
+            },
+            "unit": {
+              "type": "integer",
+              "format": "int64",
+              "x-go-name": "Unit"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "x-go-name": "UpdatedAt"
+            }
+          }
+        }
+      },
+      "x-go-package": "github.com/nguyencatpham/go-effective-study/pkg/api/product/transport"
     },
     "swaggTopicListResponse": {
       "description": "Topics model response",
@@ -1045,6 +1851,140 @@
     },
     "ok": {
       "description": "Success response"
+    },
+    "productListResp": {
+      "description": "Products model response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Page"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Product"
+            },
+            "x-go-name": "Products"
+          }
+        }
+      }
+    },
+    "productResp": {
+      "description": "Product model response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "alternateName": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "AlternateName"
+          },
+          "catalog": {
+            "$ref": "#/definitions/Catalog"
+          },
+          "catalog_id": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "CatalogID"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "CreatedAt"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "DeletedAt"
+          },
+          "description": {
+            "type": "string",
+            "x-go-name": "Description"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID"
+          },
+          "imageUrl": {
+            "type": "string",
+            "x-go-name": "ImageURL"
+          },
+          "name": {
+            "type": "string",
+            "x-go-name": "Name"
+          },
+          "note": {
+            "type": "boolean",
+            "x-go-name": "Note"
+          },
+          "numOfArticles": {
+            "type": "string",
+            "x-go-name": "NumOfArticles"
+          },
+          "numOfImages": {
+            "type": "string",
+            "x-go-name": "NumOfImages"
+          },
+          "price": {
+            "type": "integer",
+            "format": "int8",
+            "x-go-name": "Price"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Quantity"
+          },
+          "regularPrice": {
+            "type": "string",
+            "x-go-name": "RegularPrice"
+          },
+          "saleOff": {
+            "type": "integer",
+            "format": "int16",
+            "x-go-name": "SaleOff"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int8",
+            "x-go-name": "Size"
+          },
+          "sku": {
+            "type": "string",
+            "x-go-name": "Sku"
+          },
+          "slug": {
+            "type": "string",
+            "x-go-name": "Slug"
+          },
+          "status": {
+            "$ref": "#/definitions/ProductStatus"
+          },
+          "tags": {
+            "type": "string",
+            "x-go-name": "Tags"
+          },
+          "thumbnailSrc": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ThumbnailSrc"
+          },
+          "unit": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Unit"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "UpdatedAt"
+          }
+        }
+      }
     },
     "refreshResp": {
       "description": "Token refresh response",

@@ -45,7 +45,7 @@ func Init(cfg *config.Configuration) error {
 	_, err = db.Exec(sqlFuncs)
 	checkErr(err)
 
-	createSchema(db, &model.Topic{}, &model.Role{}, &model.User{}, &model.TopicDetail{}, &model.UserDetail{}, &model.Company{}, &model.Location{})
+	createSchema(db, &model.Topic{}, &model.Role{}, &model.User{}, &model.TopicDetail{}, &model.UserDetail{}, &model.Company{}, &model.Location{}, &model.Catalog{}, &model.Product{})
 	seedData(db)
 	return nil
 }

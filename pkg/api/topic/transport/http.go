@@ -120,28 +120,6 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	//   "500":
 	//     "$ref": "#/responses/err"
 	ur.DELETE("/:id", h.delete)
-	// swagger:operation GET /v1/topics/test topics topicDelete
-	// ---
-	// summary: Deletes a topic
-	// description: Deletes a topic with requested ID.
-	// parameters:
-	// - name: query
-	//   in: query
-	//   description:  graphql query.To get list :{list(key:""){page,totalItems, data{name,description,type}}}. To get 1 item {result(key:""){name,description,type}}
-	//   type: string
-	//   required: false
-	// responses:
-	//   "200":
-	//     "$ref": "#/responses/ok"
-	//   "400":
-	//     "$ref": "#/responses/err"
-	//   "401":
-	//     "$ref": "#/responses/err"
-	//   "403":
-	//     "$ref": "#/responses/err"
-	//   "500":
-	//     "$ref": "#/responses/err"
-	ur.GET("/test", h.test)
 }
 
 // Custom errors
@@ -149,21 +127,6 @@ var (
 	ErrPasswordsNotMaching = echo.NewHTTPError(http.StatusBadRequest, "passwords do not match")
 )
 
-func (h *HTTP) test(c echo.Context) error {
-	log.Println("params", c.QueryParams())
-	// r := new(model.UpdateReq)
-	// if err := c.Bind(r); err != nil {
-	// 	return err
-	// }
-	r := &model.UpdateReq{Name: "1", Description: "2", Type: 3}
-	schema := Mutation(c, h.svc, r)
-	requestString := c.QueryParam("query")
-	result, err := mutation(schema, requestString)
-	if err != nil {
-		return c.JSON(http.StatusBadRequest, err)
-	}
-	return c.JSON(http.StatusOK, result)
-}
 func (h *HTTP) query(c echo.Context) error {
 	p := new(model.PaginationReq)
 	if err := c.Bind(p); err != nil {
@@ -195,7 +158,7 @@ func (h *HTTP) create(c echo.Context) error {
 	log.Println(schema)
 	requestString := fmt.Sprintf("mutation _{create(name:\"%s\",description:\"%s\",type:%d){name,description,type}}", r.Name, r.Description, r.Type)
 	result, err := mutation(schema, requestString)
-	log.Println(result)
+	log.Println("xaxaxa", err)
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}

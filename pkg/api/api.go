@@ -42,6 +42,9 @@ import (
 	"github.com/nguyencatpham/go-effective-study/pkg/api/password"
 	pl "github.com/nguyencatpham/go-effective-study/pkg/api/password/logging"
 	pt "github.com/nguyencatpham/go-effective-study/pkg/api/password/transport"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/product"
+	prl "github.com/nguyencatpham/go-effective-study/pkg/api/product/logging"
+	prt "github.com/nguyencatpham/go-effective-study/pkg/api/product/transport"
 	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
 	tl "github.com/nguyencatpham/go-effective-study/pkg/api/topic/logging"
 	tt "github.com/nguyencatpham/go-effective-study/pkg/api/topic/transport"
@@ -80,6 +83,7 @@ func Start(cfg *config.Configuration) error {
 	ut.NewHTTP(ul.New(user.Initialize(db, rbac, sec), log), v1)
 	pt.NewHTTP(pl.New(password.Initialize(db, rbac, sec), log), v1)
 	tt.NewHTTP(tl.New(topic.Initialize(db, rbac, sec), log), v1)
+	prt.NewHTTP(prl.New(product.Initialize(db, rbac, sec), nil), v1)
 
 	server.Start(e, &server.Config{
 		Port:                cfg.Server.Port,

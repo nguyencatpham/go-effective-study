@@ -4,35 +4,34 @@ import (
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
-// Topic model response
-// swagger:response topicResp
-type swaggTopicResponse struct {
+// Product model response
+// swagger:response productResp
+type swaggProductResponse struct {
 	// in:body
 	Body struct {
-		*model.Topic
+		*model.Product
 	}
 }
 
-// Topics model response
-// swagger:response topicListResp
-type swaggTopicListResponse struct {
+// Products model response
+// swagger:response productListResp
+type swaggProductListResponse struct {
 	// in:body
 	Body struct {
-		Topics []model.Topic `json:"topics"`
-		Page   int           `json:"page"`
+		Products []model.Product `json:"products"`
+		Page     int             `json:"page"`
 	}
 }
 
-// Topic create request
-// swagger:model topicCreate
+// Product create request
+// swagger:model productCreate
 type createReq struct {
-	Name        string          `json:"name"`
-	Description string          `json:"description"`
-	Type        model.TopicType `json:"type"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 // UpdateReq update request
-// swagger:model topicUpdate
+// swagger:model productUpdate
 type updateReq struct {
 	ID          int    `json:"-"`
 	Name        string `json:"name" validate:"min=2"`
@@ -40,10 +39,10 @@ type updateReq struct {
 	Type        int    `json:"type,omitempty"`
 }
 
-// Topic list request
+// Product list request
 // swagger:model list
 type listResponse struct {
-	Data       []model.Topic `json:"data"`
-	Page       int           `json:"page"`
-	TotalItems int           `json:"totalItems"`
+	Data       []model.Product `json:"data"`
+	Page       int             `json:"page"`
+	TotalItems int             `json:"totalItems"`
 }

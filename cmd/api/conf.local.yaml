@@ -9,7 +9,7 @@ database:
   psnBase: postgres://admin:Onsky@$32!@postgres-dev.onskycloud.com:5432/postgres?sslmode=disable
 
 server:
-  host: "8080-f76958ae-2934-48df-ab1c-3a8d355f5bf8.ws-ap0.gitpod.io"
+  host: "8080-c63bf898-6880-4f61-a146-5ddc2503544c.ws-ap0.gitpod.io"
   port: :8080
   debug: true
   read_timeout_seconds: 10

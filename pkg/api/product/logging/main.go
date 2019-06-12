@@ -1,32 +1,32 @@
-package topic
+package product
 
 import (
-	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/product"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
-// New creates new topic logging service
-func New(svc topic.Service, logger model.Logger) *LogService {
+// New creates new product logging service
+func New(svc product.Service, logger model.Logger) *LogService {
 	return &LogService{
 		Service: svc,
 		logger:  logger,
 	}
 }
 
-// LogService represents topic logging service
+// LogService represents product logging service
 type LogService struct {
-	topic.Service
+	product.Service
 	logger model.Logger
 }
 
-// const name = "topic"
+// const name = "product"
 
 // // View logging
-// func (ls *LogService) View(c echo.Context, req []string) (resp *model.Topic, err error) {
+// func (ls *LogService) View(c echo.Context, req []string) (resp *model.Product, err error) {
 // 	defer func(begin time.Time) {
 // 		ls.logger.Log(
 // 			c,
-// 			name, "View topic request", err,
+// 			name, "View product request", err,
 // 			map[string]interface{}{
 // 				"req":  req,
 // 				"resp": resp,
@@ -38,11 +38,11 @@ type LogService struct {
 // }
 
 // // List logging
-// func (ls *LogService) List(c echo.Context, req *model.Pagination, query []string) (resp []model.Topic, totalItems int, err error) {
+// func (ls *LogService) List(c echo.Context, req *model.Pagination, query []string) (resp []model.Product, totalItems int, err error) {
 // 	defer func(begin time.Time) {
 // 		ls.logger.Log(
 // 			c,
-// 			name, "List topic request", err,
+// 			name, "List product request", err,
 // 			map[string]interface{}{
 // 				"req":  req,
 // 				"resp": resp,
@@ -58,7 +58,7 @@ type LogService struct {
 // 	defer func(begin time.Time) {
 // 		ls.logger.Log(
 // 			c,
-// 			name, "Delete topic request", err,
+// 			name, "Delete product request", err,
 // 			map[string]interface{}{
 // 				"req":  req,
 // 				"took": time.Since(begin),
@@ -69,11 +69,11 @@ type LogService struct {
 // }
 
 // // Update logging
-// func (ls *LogService) Update(c echo.Context, req model.UpdateReq) (resp *model.Topic, err error) {
+// func (ls *LogService) Update(c echo.Context, req model.UpdateReq) (resp *model.Product, err error) {
 // 	defer func(begin time.Time) {
 // 		ls.logger.Log(
 // 			c,
-// 			name, "Update topic request", err,
+// 			name, "Update product request", err,
 // 			map[string]interface{}{
 // 				"req":  req,
 // 				"resp": resp,
@@ -85,11 +85,11 @@ type LogService struct {
 // }
 
 // // Create logging
-// func (ls *LogService) Create(c echo.Context, req model.Topic) (resp *model.Topic, err error) {
+// func (ls *LogService) Create(c echo.Context, req model.Product) (resp *model.Product, err error) {
 // 	defer func(begin time.Time) {
 // 		ls.logger.Log(
 // 			c,
-// 			name, "Create topic request", err,
+// 			name, "Create product request", err,
 // 			map[string]interface{}{
 // 				"req":  req,
 // 				"resp": resp,

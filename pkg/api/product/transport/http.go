@@ -7,25 +7,25 @@ import (
 
 	"github.com/graphql-go/graphql"
 	"github.com/labstack/echo"
-	"github.com/nguyencatpham/go-effective-study/pkg/api/topic"
+	"github.com/nguyencatpham/go-effective-study/pkg/api/product"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/helper"
 	"github.com/nguyencatpham/go-effective-study/pkg/utl/model"
 )
 
-// HTTP represents topic http service
+// HTTP represents product http service
 type HTTP struct {
-	svc topic.Service
+	svc product.Service
 }
 
-// NewHTTP creates new topic http service
-func NewHTTP(svc topic.Service, er *echo.Group) {
+// NewHTTP creates new product http service
+func NewHTTP(svc product.Service, er *echo.Group) {
 	h := HTTP{svc}
-	ur := er.Group("/topics")
+	ur := er.Group("/products")
 
-	// swagger:operation GET /v1/topics topics listTopics
+	// swagger:operation GET /v1/products products listProducts
 	// ---
-	// summary: Returns list of topics.
-	// description: Returns list of topics. Depending on the topic role requesting it, it may return all topics for SuperAdmin/Admin topics, all company/location topics for Company/Location admins, and an error for non-admin topics.
+	// summary: Returns list of products.
+	// description: Returns list of products. Depending on the product role requesting it, it may return all products for SuperAdmin/Admin products, all company/location products for Company/Location admins, and an error for non-admin products.
 	// parameters:
 	// - name: query
 	//   in: query
@@ -34,7 +34,7 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	//   required: false
 	// responses:
 	//   "200":
-	//     "$ref": "#/responses/topicListResp"
+	//     "$ref": "#/responses/productListResp"
 	//   "400":
 	//     "$ref": "#/responses/errMsg"
 	//   "401":
@@ -45,10 +45,10 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	//     "$ref": "#/responses/err"
 	ur.GET("", h.query)
 
-	// swagger:operation POST /v1/topics topics topicCreate
+	// swagger:operation POST /v1/products products productCreate
 	// ---
-	// summary: Returns topic created.
-	// description: Returns list of topics. Depending on the topic role requesting it, it may return all topics for SuperAdmin/Admin topics, all company/location topics for Company/Location admins, and an error for non-admin topics.
+	// summary: Returns product created.
+	// description: Returns list of products. Depending on the product role requesting it, it may return all products for SuperAdmin/Admin products, all company/location products for Company/Location admins, and an error for non-admin products.
 	// parameters:
 	// - name: query
 	//   in: query
@@ -60,10 +60,10 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	//   description: Request body
 	//   required: true
 	//   schema:
-	//     "$ref": "#/definitions/topicCreate"
+	//     "$ref": "#/definitions/productCreate"
 	// responses:
 	//   "200":
-	//     "$ref": "#/responses/topicListResp"
+	//     "$ref": "#/responses/productListResp"
 	//   "400":
 	//     "$ref": "#/responses/errMsg"
 	//   "401":
@@ -74,20 +74,20 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	//     "$ref": "#/responses/err"
 	ur.POST("", h.create)
 
-	// swagger:operation PATCH /v1/topics/{id} topics topicUpdate
+	// swagger:operation PATCH /v1/products/{id} products productUpdate
 	// ---
-	// summary: Updates topic's contact information
-	// description: Updates topic's contact information -> first name, last name, mobile, phone, address.
+	// summary: Updates product's contact information
+	// description: Updates product's contact information -> first name, last name, mobile, phone, address.
 	// parameters:
 	// - name: request
 	//   in: body
 	//   description: Request body
 	//   required: true
 	//   schema:
-	//     "$ref": "#/definitions/topicUpdate"
+	//     "$ref": "#/definitions/productUpdate"
 	// responses:
 	//   "200":
-	//     "$ref": "#/responses/topicResp"
+	//     "$ref": "#/responses/productResp"
 	//   "400":
 	//     "$ref": "#/responses/errMsg"
 	//   "401":
@@ -98,14 +98,14 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	//     "$ref": "#/responses/err"
 	ur.PATCH("", h.update)
 
-	// swagger:operation DELETE /v1/topics/{id} topics topicDelete
+	// swagger:operation DELETE /v1/products/{id} products productDelete
 	// ---
-	// summary: Deletes a topic
-	// description: Deletes a topic with requested ID.
+	// summary: Deletes a product
+	// description: Deletes a product with requested ID.
 	// parameters:
 	// - name: id
 	//   in: path
-	//   description: id of topic
+	//   description: id of product
 	//   type: number
 	//   required: true
 	// responses:
@@ -120,10 +120,10 @@ func NewHTTP(svc topic.Service, er *echo.Group) {
 	//   "500":
 	//     "$ref": "#/responses/err"
 	ur.DELETE("/:id", h.delete)
-	// swagger:operation GET /v1/topics/test topics topicDelete
+	// swagger:operation GET /v1/products/test products productDelete
 	// ---
-	// summary: Deletes a topic
-	// description: Deletes a topic with requested ID.
+	// summary: Deletes a product
+	// description: Deletes a product with requested ID.
 	// parameters:
 	// - name: query
 	//   in: query
